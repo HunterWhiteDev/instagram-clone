@@ -59,3 +59,17 @@
   width: 50%;
   padding: 10px;
 }
+
+.app__loginPrompt {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  display: flex;
+  align-content: center;
+}
+
+.app__loginPrompt > h3 {
+  padding: 50px;
+  font-size: 30px;
+  margin: auto;
+}

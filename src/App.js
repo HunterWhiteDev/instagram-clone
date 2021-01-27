@@ -125,6 +125,13 @@ function App() {
           src="https://instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
           alt=""
         />
+
+        {user ? (
+          <h3 className="app__welcomeText">Welcome, {user?.displayName}</h3>
+        ) : (
+          <h3 className="app__welcomeText">Welcome to Instagram</h3>
+        )}
+
         {user ? (
           <Button onClick={() => auth.signOut()}>SIGN OUT</Button>
         ) : (
@@ -150,7 +157,9 @@ function App() {
       {user?.displayName ? (
         <ImageUpload username={user?.displayName} />
       ) : (
-        <h3>You need to be logged in to make a post</h3>
+        <div className="app__loginPrompt">
+          <h3>You need to be logged in to make a post</h3>
+        </div>
       )}
     </div>
   );
