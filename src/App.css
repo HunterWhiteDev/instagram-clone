@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+}
+
+.app {
+  background-color: rgb(250, 250, 250);
+}
+
+.app__posts {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app__header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  object-fit: contain;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid lightgray;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app__headerImage {
+  object-fit: contain;
+}
+
+.app__modal {
+  width: 700px;
+  height: 500px;
+  background-color: white;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  margin-top: 25%;
+}
+
+.modal__content > img {
+  width: 20%;
+}
+
+.MuiInput-root {
+  width: 50%;
+  padding: 10px;
+}
+
+.app__loginPrompt {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  display: flex;
+  align-content: center;
+}
+
+.app__loginPrompt > h3 {
+  padding: 50px;
+  font-size: 30px;
+  margin: auto;
+}
