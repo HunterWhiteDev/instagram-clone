@@ -4,15 +4,16 @@ import Post from "./Post";
 import { auth, db } from "./firebase";
 import { Button, Input, makeStyles, Modal } from "@material-ui/core";
 import ImageUpload from "./ImageUpload";
+import {} from "firebase/auth";
 
 function App() {
-  const [open, setOpen] = useState();
-  const [openSignIn, setOpenSignIn] = useState();
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
-  const [email, setEmail] = useState();
-  const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const [openSignIn, setOpenSignIn] = useState<boolean>(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [posts, setPosts] = useState<any[]>([]);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -56,13 +57,14 @@ function App() {
   const signIn = (event) => {
     event.preventDefault();
     auth
-      .signInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email as string, password as string)
       .catch((error) => alert(error.message));
     setOpenSignIn(false);
   };
 
   return (
     <div className="app">
+      {/* @ts-ignore*/}
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="app__modal">
           <div className="modal__content">
@@ -93,7 +95,7 @@ function App() {
           </div>
         </div>
       </Modal>
-
+      {/* @ts-ignore*/}
       <Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
         <div className="app__modal">
           <div className="modal__content">

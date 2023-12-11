@@ -3,7 +3,7 @@ import { storage, db } from "./firebase";
 import firebase from "firebase";
 import "./ImageUpload.css";
 function ImageUpload({ username }) {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<Blob | null>(null);
   const [progress, setProgress] = useState(0);
   const [caption, setCpation] = useState("");
 
@@ -14,36 +14,38 @@ function ImageUpload({ username }) {
   };
 
   const handleUpload = () => {
-    const uploadTask = storage.ref(`images/${image.name}`).put(image);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(progress);
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        storage
-          .ref("images")
-          .child(image.name)
-          .getDownloadURL()
-          .then((url) => {
-            db.collection("posts").add({
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-              caption: caption,
-              imageUrl: url,
-              username: username,
+    if (image) {
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setProgress(progress);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              db.collection("posts").add({
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                caption: caption,
+                imageUrl: url,
+                username: username,
+              });
+              setProgress(0);
+              setCpation("");
+              setImage(null);
             });
-            setProgress(0);
-            setCpation("");
-            setImage(null);
-          });
-      }
-    );
+        }
+      );
+    }
   };
 
   return (

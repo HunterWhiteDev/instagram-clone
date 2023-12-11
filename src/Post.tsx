@@ -4,8 +4,8 @@ import { db } from "./firebase";
 import "./Post.css";
 import firebase from "firebase";
 function Post({ postId, username, caption, imageUrl, user }) {
-  const [comments, setComments] = useState([]);
-  const [comment, setComment] = useState([]);
+  const [comments, setComments] = useState<any[]>([]);
+  const [comment, setComment] = useState<string>("");
 
   const postComment = (event) => {
     event.preventDefault();
