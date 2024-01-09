@@ -1,0 +1,36 @@
+.signup {
+  width: 300px;
+  margin: 0 auto !important;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.signup__top {
+  border: 1px solid gray;
+  padding: 2rem;
+}
+
+.signup__top > img {
+  object-fit: contain;
+  height: 50px;
+}
+
+form {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup__bottom {
+  border: 1px solid gray;
+  margin-top: 0.5rem;
+}
+
+.signup__bottom > p > span {
+  color: lightblue;
+  cursor: pointer;
+  font-weight: bold;
+}

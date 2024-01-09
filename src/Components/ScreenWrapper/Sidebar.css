@@ -1,0 +1,34 @@
+.sidebar {
+  flex: 0.175;
+}
+
+.sidebar > img {
+  object-fit: contain;
+  height: 35px;
+  margin-top: 25px;
+  filter: brightness(100);
+}
+
+.sidebar > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar > ul > li {
+  margin: 1rem 0;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.25rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.sidebar > ul > li:hover {
+  background-color: rgb(42, 42, 42);
+}
+
+.sidebar > ul > li > span {
+  margin-left: 10px;
+}

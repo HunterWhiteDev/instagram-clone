@@ -1,0 +1,21 @@
+.home {
+  flex: 0.6;
+}
+
+.homeStories {
+  display: flex;
+  border: 1px solid gray;
+  margin: 0 auto;
+  width: 500px;
+  justify-content: space-between;
+  padding: 0.25rem;
+  border-radius: 0.75rem;
+}
+
+.homeStories > img {
+  object-fit: contain;
+  height: 65px;
+  margin: 0 5px;
+  border-radius: 100%;
+  cursor: pointer;
+}

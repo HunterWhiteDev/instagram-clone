@@ -1,0 +1,34 @@
+.input {
+  background-color: rgb(67, 67, 67);
+  border: 1px solid gray;
+  margin: 5px 0;
+  padding: 7.5px;
+  outline: none;
+  border-radius: 0.25rem;
+  color: white;
+}
+
+.blueButton {
+  margin-top: 1rem;
+  color: white;
+  padding: 0.25rem;
+  border-color: transparent;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  background-color: #0098fd;
+  cursor: pointer;
+}
+
+.blueButton:hover {
+  background-color: #0098fdc7;
+}
+
+.blueButton:disabled {
+  background-color: #00538a;
+  color: gray;
+  cursor: not-allowed;
+}
+
+.screen {
+  display: flex;
+}
