@@ -1,5 +1,12 @@
 .sidebar {
-  flex: 0.175;
+  flex: 0.15;
+  border-right: 1px solid gray;
+  height: 100vh;
+  overflow: hidden;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  position: fixed;
+  width: 15vw;
 }
 
 .sidebar > img {

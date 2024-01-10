@@ -1,0 +1,72 @@
+.post {
+  border: 1px solid rgba(128, 128, 128, 0.341);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.post:hover {
+  border: 1px solid gray;
+}
+
+.post__top {
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.post__topMeta {
+  display: flex;
+}
+
+.post__topMeta > p {
+  margin: 0;
+  margin-left: 5px;
+}
+
+.post__topMetaTimestamp {
+  margin-left: 5px !important;
+}
+
+.post__top > img {
+  object-fit: contain;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.post__middle {
+  background-color: black;
+}
+
+.post__middle > img {
+  width: 100%;
+  margin: 0 auto;
+  object-fit: contain;
+  max-height: 33vh;
+}
+
+.post__bottom {
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.post__bottom > p {
+  margin: 0;
+  padding-left: 5px;
+}
+
+.post_bottomButtons > *:nth-child(2) {
+  margin-left: 5px;
+}
+
+.post__bottom > form > input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  margin-top: 5px;
+  padding: 5px;
+  color: white;
+}

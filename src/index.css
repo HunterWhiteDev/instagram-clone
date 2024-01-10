@@ -6,9 +6,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --gray: #262626;
 }
 
 body {
   background-color: rgb(29, 29, 29);
   color: white;
+  margin: 0;
 }

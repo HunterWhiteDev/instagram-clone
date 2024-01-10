@@ -1,0 +1,29 @@
+.stories {
+  display: flex;
+  border: 1px solid gray;
+  margin: 0 auto;
+  width: 500px;
+  justify-content: space-between;
+  padding: 0.35rem;
+  border-radius: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.stories__story {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.stories__story > img {
+  object-fit: contain;
+  height: 50px;
+  margin: 0 5px;
+  border-radius: 100%;
+}
+
+.stories__story > p {
+  margin: 0;
+}
