@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Signup.css";
 import supabase from "../../supabase";
 import { useNavigate } from "react-router-dom";
+import { AuthResponse, User } from "@supabase/supabase-js";
 
 function Signup() {
   const [email, setEmail] = useState<string>("");
@@ -15,13 +16,23 @@ function Signup() {
     e.preventDefault();
     if (password !== confirmPassword) return alert("Passwords do not match");
 
-    const { error } = await supabase.auth.signUp({
+    const { error, data }: AuthResponse = await supabase.auth.signUp({
       email,
       password,
       options: { data: { username } },
     });
+    if (error) return alert(error.message);
 
-    if (error) alert(error.message);
+    const { error: tableError, data: tableData } = await supabase
+      .from("users")
+      .insert({
+        user_id: data.user?.id,
+        username,
+        email,
+      });
+    if (tableError) return tableError.message;
+
+    navigate("/home");
   };
 
   return (

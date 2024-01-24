@@ -7,9 +7,29 @@ import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AddIcon from "@mui/icons-material/Add";
 import { CreateModal } from "../CreateModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import supabase from "../../supabase";
+import { useNavigate } from "react-router-dom";
 function Sidebar() {
   const [open, setOpen] = useState(false);
+
+  const [username, setUsername] = useState<string>("");
+
+  const navigate = useNavigate();
+
+  const getUser = async () => {
+    const resposne = await supabase.auth.getUser();
+    setUsername(resposne.data.user?.user_metadata.username);
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const signout = () => {
+    supabase.auth.signOut();
+    navigate("/login");
+  };
 
   return (
     <>
@@ -20,7 +40,7 @@ function Sidebar() {
         <img src="https://i.pinimg.com/originals/57/6c/dd/576cdd470fdc0b88f4ca0207d2b471d5.png" />
 
         <ul>
-          <li>
+          <li onClick={() => navigate("/home")}>
             <HomeIcon /> <span> Home</span>
           </li>
           <li>
@@ -41,7 +61,8 @@ function Sidebar() {
           <li onClick={() => setOpen(true)}>
             <AddIcon /> <span>Create</span>
           </li>
-          <li>Profile</li>
+          <li onClick={() => navigate(`/profile/${username}`)}>Profile</li>
+          <li onClick={signout}>Log Out</li>
         </ul>
       </div>
     </>

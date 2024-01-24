@@ -1,5 +1,5 @@
 import React from "react";
-import { Sidebar } from "../../Components/ScreenWrapper";
+import { Sidebar } from "../../Components/Sidebar";
 import "./Home.css";
 import Post from "../../Components/Post/Post";
 import { Stories } from "../../Components/Stories";

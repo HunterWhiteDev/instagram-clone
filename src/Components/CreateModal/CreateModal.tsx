@@ -1,16 +1,28 @@
-import { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./CreateModal.css";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
+import uploadFile from "../../utils/uploadFile";
+import supabase from "../../supabase";
+import { useNavigate } from "react-router-dom";
 
 interface CreateModalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface InsertResponse {
+  data: {
+    id: string;
+  };
+}
+
 function CreateModal({ setOpen }: CreateModalProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File>();
   const [fileUrl, setFileUrl] = useState<string>();
+  const [description, setDescription] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) setOpen(false);
@@ -28,6 +40,26 @@ function CreateModal({ setOpen }: CreateModalProps) {
       reader.readAsDataURL(file);
     }
   };
+
+  const upload = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const uuid = crypto.randomUUID();
+    if (file) await uploadFile(file, "posts", `${uuid}`);
+
+    const user = await supabase.auth.getUser();
+
+    const uploadRes = await supabase
+      .from("posts")
+      .insert({
+        user_id: user.data.user?.id,
+        images: [uuid],
+        description,
+      })
+      .select("*");
+
+    uploadRes.data && navigate(`/post/${uploadRes.data[0].id}`);
+  };
+
   return (
     <div className="createModal__bkg" onClick={handleClose}>
       <div className="createModal__content">
@@ -54,9 +86,15 @@ function CreateModal({ setOpen }: CreateModalProps) {
 
         {file ? (
           <div className="createModal__bottom">
-            <form>
-              <input placeholder="Add description" />
-              <button className="blueButton">Upload </button>
+            <form onSubmit={upload}>
+              <input
+                placeholder="Add description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <button type="submit" className="blueButton">
+                Upload
+              </button>
             </form>
           </div>
         ) : null}

@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Post.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+import supabase from "../../supabase";
 function Post({
   username = "username",
   pfp_url = "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg",
   location = "Florida",
   timestamp = new Date(),
-  image_url = "https://placehold.co/600x400",
+  image_id = "https://placehold.co/600x400",
   like_count = "5",
   description = "desc",
   comments = [],
 }) {
+  const [imageUrl, setImageUrl] = useState<string>("");
+
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = supabase.storage.from("posts").getPublicUrl(image_id);
+      setImageUrl(data.publicUrl);
+    };
+
+    getData();
+  }, []);
+
   return (
     <div className="post">
       <div className="post__top">
@@ -26,7 +38,7 @@ function Post({
         </div>
       </div>
       <div className="post__middle">
-        <img src={image_url} />
+        <img src={imageUrl} />
       </div>
       <div className="post__bottom">
         <div className="post_bottomButtons">
