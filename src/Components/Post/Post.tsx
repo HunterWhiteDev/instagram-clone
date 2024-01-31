@@ -4,41 +4,68 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import supabase from "../../supabase";
 function Post({
-  username = "username",
-  pfp_url = "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg",
-  location = "Florida",
-  timestamp = new Date(),
-  image_id = "https://placehold.co/600x400",
+  location = "",
   like_count = "5",
   description = "desc",
   comments = [],
+  user_id = "",
+  created_at = new Date().getTime(),
+  images = [""],
+  // username = "name",
 }) {
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [imageUrls, setImageUrls] = useState<string[]>([""]);
+  const [pfp, setPfp] = useState<string>("");
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = supabase.storage.from("posts").getPublicUrl(image_id);
-      setImageUrl(data.publicUrl);
+      const imagesUrlsArr = [];
+
+      for (const id of images) {
+        const { data } = supabase.storage.from("posts").getPublicUrl(id);
+        imagesUrlsArr.push(data.publicUrl);
+      }
+
+      const { data: usernameRes } = await supabase
+        .from("users")
+        .select("username")
+        .eq("user_id", user_id);
+
+      setImageUrls(imagesUrlsArr);
+      setUsername(usernameRes[0].username);
     };
 
     getData();
   }, []);
 
+  useEffect(() => {
+    const getPfp = async () => {
+      const {
+        data: { publicUrl },
+      } = await supabase.storage.from("pfps").getPublicUrl(user_id);
+      setPfp(publicUrl + "?random=" + new Date().getTime());
+    };
+
+    getPfp();
+  }, [user_id]);
+
   return (
     <div className="post">
       <div className="post__top">
-        <img src={pfp_url} />
+        <img src={pfp} />
         <div className="post__topMeta">
           <p>
             <span>{username}</span>
             <br />
             <span>{location}</span>
           </p>
-          <p className="post__topMetaTimestamp">{timestamp.toISOString()}</p>
+          <p className="post__topMetaTimestamp">
+            {new Date(created_at).toISOString()}
+          </p>
         </div>
       </div>
       <div className="post__middle">
-        <img src={imageUrl} />
+        <img src={imageUrls[0]} />
       </div>
       <div className="post__bottom">
         <div className="post_bottomButtons">

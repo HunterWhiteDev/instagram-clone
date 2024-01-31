@@ -23,9 +23,7 @@ function Post() {
   return (
     <>
       <Sidebar />
-      <div className="postScren">
-        {post ? <PostCard image_id={post.images[0]} /> : null}
-      </div>
+      <div className="postScren">{post ? <PostCard {...post} /> : null}</div>
     </>
   );
 }

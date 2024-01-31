@@ -5,6 +5,7 @@ import { Signup } from "./Screens/Signup";
 import { Home } from "./Screens/Home";
 import { Post } from "./Screens/Post";
 import { Profile } from "./Screens/Profile";
+import { Edit } from "./Screens/Edit";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route Component={Home} path="/home" />
       <Route Component={Post} path="/post/:id" />
       <Route Component={Profile} path="/profile/:username" />
+      <Route Component={Edit} path="/profile/edit" />
     </Routes>
   );
 }

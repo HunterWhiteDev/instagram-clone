@@ -45,12 +45,14 @@ function Signup() {
         <form onSubmit={signUp}>
           <input
             className="input"
+            type="email"
             placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             className="input"
+            type="username"
             placeholder="usrnamae"
             value={username}
             onChange={(e) => setUsername(e.target.value)}

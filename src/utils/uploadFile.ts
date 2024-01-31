@@ -1,6 +1,8 @@
 import supabase from "../supabase";
 
 export default async function (file: File, bucket: string, path: string) {
+  await supabase.storage.from(bucket).remove([path]);
+
   const { data, error } = await supabase.storage
     .from(bucket)
     .upload(path, file, {

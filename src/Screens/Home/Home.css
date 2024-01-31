@@ -1,6 +1,7 @@
 .home {
-  flex: 0.6;
-  margin-left: 25vw;
+  margin-left: 17.5vw;
+  padding-top: 2.5vh;
+  width: 75%;
 }
 
 .home__feed {
