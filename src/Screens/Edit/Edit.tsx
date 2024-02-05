@@ -32,9 +32,11 @@ function Edit() {
     []
   );
 
-  const getPfp = () => {
-    const { data } = supabase.storage.from("pfps").getPublicUrl(authUser?.id);
-    setPfp(data.publicUrl + "?random=" + new Date().getTime());
+  const getPfp = async () => {
+    const { data } = await supabase.storage
+      .from("pfps")
+      .getPublicUrl(authUser?.id);
+    setPfp(data.publicUrl + "?random=" + Math.random());
   };
 
   useEffect(() => {
@@ -80,7 +82,7 @@ function Edit() {
         <div className="edit__form">
           <div className="edit__formPfp">
             <div className="edit__formPfpLeft">
-              <img src="https://rnypbaefekpaolxsxhqo.supabase.co/storage/v1/object/public/pfps/d1c6169b-b544-4183-9d12-a263bac6efe8?random=1706721439602" />
+              <img src={pfp} />
               <p>
                 <span>Name</span>
                 <br />

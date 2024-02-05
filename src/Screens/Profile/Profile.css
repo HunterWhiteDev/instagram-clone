@@ -10,10 +10,10 @@
 }
 
 .profile__topLeft > img {
-  object-fit: contain;
-  height: 125px;
+  height: 100px;
+  width: 100px;
   border-radius: 100%;
-  margin-right: 5rem;
+  margin-right: 2rem;
 }
 
 .profile__topRight > div {
