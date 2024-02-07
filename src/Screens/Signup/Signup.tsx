@@ -3,6 +3,7 @@ import "./Signup.css";
 import supabase from "../../supabase";
 import { useNavigate } from "react-router-dom";
 import { AuthResponse, User } from "@supabase/supabase-js";
+import invokeFunction from "../../utils/invokeFunction";
 
 function Signup() {
   const [email, setEmail] = useState<string>("");
@@ -23,16 +24,24 @@ function Signup() {
     });
     if (error) return alert(error.message);
 
-    const { error: tableError, data: tableData } = await supabase
-      .from("users")
-      .insert({
-        user_id: data.user?.id,
-        username,
-        email,
-      });
-    if (tableError) return tableError.message;
+    const body = {
+      user_id: data.user?.id || Math.floor(Math.random() * 1000),
+      username,
+      email,
+    };
 
-    navigate("/home");
+    const headers = {
+      Authorization: `Bearer ${data.session?.access_token}`,
+    };
+
+    const response = await invokeFunction("signup", body, headers);
+    console.log(response);
+
+    if (response && response.success) {
+      navigate("/home");
+    } else {
+      alert("An Error has occured");
+    }
   };
 
   return (

@@ -7,6 +7,7 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import { AuthUser, UserResponse } from "@supabase/supabase-js";
+import useFunction from "../../hooks/useFunction";
 interface User {
   username: string;
   user_id: string;
@@ -23,77 +24,79 @@ function Profile() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getFollowingRecord = async () => {
-      const res = await supabase
-        .from("following")
-        .select("*")
-        .eq("follower_id", auth?.data.user?.id)
-        .eq("following_id", user?.user_id)
-        .limit(1);
+  const [loading, data] = useFunction("profile", { username: username });
+  console.log(data);
+  // useEffect(() => {
+  //   const getFollowingRecord = async () => {
+  //     const res = await supabase
+  //       .from("following")
+  //       .select("*")
+  //       .eq("follower_id", auth?.data.user?.id)
+  //       .eq("following_id", user?.user_id)
+  //       .limit(1);
 
-      if (res?.data?.length > 0) setIsFollowing(true);
-      else setIsFollowing(false);
-    };
+  //     if (res?.data?.length > 0) setIsFollowing(true);
+  //     else setIsFollowing(false);
+  //   };
 
-    getFollowingRecord();
-  }, []);
+  //   getFollowingRecord();
+  // }, []);
 
-  useEffect(() => {
-    const getAuth = async () => {
-      const authRes = await supabase.auth.getUser();
-      setAuth(authRes);
-    };
+  // useEffect(() => {
+  //   const getAuth = async () => {
+  //     const authRes = await supabase.auth.getUser();
+  //     setAuth(authRes);
+  //   };
 
-    getAuth();
-  }, []);
+  //   getAuth();
+  // }, []);
 
-  useEffect(() => {
-    const getUser = async () => {
-      const { error, data } = await supabase
-        .from("users")
-        .select("*")
-        .eq("username", username);
-      if (data) setUser(data[0]);
-      else if (error) alert(error.message);
-    };
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     const { error, data } = await supabase
+  //       .from("users")
+  //       .select("*")
+  //       .eq("username", username);
+  //     if (data) setUser(data[0]);
+  //     else if (error) alert(error.message);
+  //   };
 
-    getUser();
-  }, [username]);
+  //   getUser();
+  // }, [username]);
 
-  useEffect(() => {
-    const getPfp = async () => {
-      const { data } = await supabase.storage
-        .from("pfps")
-        .getPublicUrl(user?.user_id);
-      setpfp(data.publicUrl + "?random=" + new Date().getTime());
-    };
+  // useEffect(() => {
+  //   const getPfp = async () => {
+  //     const { data } = await supabase.storage
+  //       .from("pfps")
+  //       .getPublicUrl(user?.user_id);
+  //     setpfp(data.publicUrl + "?random=" + new Date().getTime());
+  //   };
 
-    getPfp();
-  }, [user]);
+  //   getPfp();
+  // }, [user]);
 
-  useEffect(() => {
-    const getPosts = async () => {
-      const { error, data } = await supabase
-        .from("posts")
-        .select("*")
-        .eq("user_id", user.user_id)
-        .order("created_at", { ascending: false });
+  // useEffect(() => {
+  //   const getPosts = async () => {
+  //     const { error, data } = await supabase
+  //       .from("posts")
+  //       .select("*")
+  //       .eq("user_id", user.user_id)
+  //       .order("created_at", { ascending: false });
 
-      data?.forEach((post) => {
-        post.images.forEach((url: string, idx: number) => {
-          const {
-            data: { publicUrl },
-          } = supabase.storage.from("posts").getPublicUrl(url);
-          post.images[idx] = publicUrl;
-        });
-      });
+  //     data?.forEach((post) => {
+  //       post.images.forEach((url: string, idx: number) => {
+  //         const {
+  //           data: { publicUrl },
+  //         } = supabase.storage.from("posts").getPublicUrl(url);
+  //         post.images[idx] = publicUrl;
+  //       });
+  //     });
 
-      if (data) setPosts(data);
-      else if (error) alert(error.message);
-    };
-    if (user) getPosts();
-  }, [user]);
+  //     if (data) setPosts(data);
+  //     else if (error) alert(error.message);
+  //   };
+  //   if (user) getPosts();
+  // }, [user]);
 
   const followUser = async () => {
     try {

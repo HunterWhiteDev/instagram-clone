@@ -15,6 +15,8 @@ function Login() {
       email,
       password,
     });
+
+    console.log(data);
     if (error) alert(error.message);
     else if (data) navigate("/home");
   };
