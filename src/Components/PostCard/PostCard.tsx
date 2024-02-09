@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import "./PostCard.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import supabase from "../../supabase";
 import getPublicUrl from "../../utils/getPublicUrl";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
-import getUsername from "../../utils/getUsername";
 import useUsername from "../../hooks/useUsername";
 function PostCard({
   id,
