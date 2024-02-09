@@ -83,9 +83,17 @@
   padding: 0 auto;
 }
 
-.profile__postsGrid > img {
+.profile__postsGrid > div {
+  background-color: black;
   box-sizing: border-box;
   width: calc(33% - 1.2rem);
+  display: flex;
+  align-items: center;
+  height: 300px;
+}
+
+.profile__postsGrid > div > img {
   object-fit: contain;
   cursor: pointer;
+  max-width: 100%;
 }

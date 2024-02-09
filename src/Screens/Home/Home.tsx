@@ -3,8 +3,6 @@ import { Sidebar } from "../../Components/Sidebar";
 import "./Home.css";
 import Post from "../../Components/Post/Post";
 import { Stories } from "../../Components/Stories";
-import supabase from "../../supabase";
-import invokeFunction from "../../utils/invokeFunction";
 import useFunction from "../../hooks/useFunction";
 function Home() {
   // const [posts, setPosts] = useState([]);

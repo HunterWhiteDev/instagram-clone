@@ -39,5 +39,30 @@
 }
 
 .sidebar > ul > li > span {
+  margin-left: 5px;
+}
+
+/* 
+For hover effect. Not working right now but will fix later.
+.sidebar > ul > li:hover,
+.sidebar > ul > li > .MuiSvgIcon-root {
+  transform: scale(1.1);
+}
+
+.sidebar > ul > li > span {
   margin-left: 10px;
+  font-size: 16px;
+} */
+
+.sidebar__profile {
+  padding: 0;
+  margin: 0;
+  height: 35px;
+}
+
+.sidebar__pfp {
+  height: 35px;
+  width: 35px;
+  border-radius: 100%;
+  margin-right: 10px;
 }

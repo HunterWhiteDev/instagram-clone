@@ -10,16 +10,18 @@ import { CreateModal } from "../CreateModal";
 import { useEffect, useState } from "react";
 import supabase from "../../supabase";
 import { useNavigate } from "react-router-dom";
+import getPublicUrl from "../../utils/getPublicUrl";
+import { User } from "@supabase/supabase-js";
 function Sidebar() {
   const [open, setOpen] = useState(false);
 
-  const [username, setUsername] = useState<string>("");
+  const [user, setUser] = useState<User | null>(null);
 
   const navigate = useNavigate();
 
   const getUser = async () => {
     const resposne = await supabase.auth.getUser();
-    setUsername(resposne.data.user?.user_metadata.username);
+    setUser(resposne.data.user);
   };
 
   useEffect(() => {
@@ -61,7 +63,16 @@ function Sidebar() {
           <li onClick={() => setOpen(true)}>
             <AddIcon /> <span>Create</span>
           </li>
-          <li onClick={() => navigate(`/profile/${username}`)}>Profile</li>
+          <li
+            className="sidebar__profile"
+            onClick={() => navigate(`/profile/${user?.user_metadata.username}`)}
+          >
+            <img
+              className="sidebar__pfp"
+              src={getPublicUrl(user?.id as string, "pfps")}
+            />
+            <p>Profile</p>
+          </li>
           <li onClick={signout}>Log Out</li>
         </ul>
       </div>
