@@ -1,14 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Sidebar } from "../../Components/Sidebar";
 import "./Profile.css";
-import supabase from "../../supabase";
 import { useNavigate, useParams } from "react-router-dom";
 import GridViewIcon from "@mui/icons-material/GridView";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import PortraitIcon from "@mui/icons-material/Portrait";
-import { AuthUser, UserResponse } from "@supabase/supabase-js";
+import { AuthUser } from "@supabase/supabase-js";
 import useFunction from "../../hooks/useFunction";
 import getPublicUrl from "../../utils/getPublicUrl";
+import invokeFunction from "../../utils/invokeFunction";
 interface User {
   username: string;
   user_id: string;
@@ -20,46 +20,28 @@ interface body {
 
 function Profile() {
   const { username } = useParams();
-  const [user, setUser] = useState<User>();
-  const [selected, setSelected] = useState<string>("posts");
-  // const [posts, setPosts] = useState([]);
-  const [auth, setAuth] = useState<AuthUser>();
-  const [isFollowing, setIsFollowing] = useState<boolean>(false);
-  const [pfp, setpfp] = useState<string>("");
 
-  const navigate = useNavigate();
+  const [selected, setSelected] = useState<string>("posts");
+  const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
   const body = useMemo(() => {
     return { username };
   }, [username]);
 
-  const [loading, data] = useFunction("profile", body);
+  const [loading, data] = useFunction("profile", body, null, (res) =>
+    setIsFollowing(res.isFollowing as boolean)
+  );
 
-  console.log(data);
+  const navigate = useNavigate();
 
   const followUser = async () => {
-    try {
-      await supabase.from("following").insert({
-        follower_id: auth?.data.user?.id,
-        following_id: user?.user_id,
-      });
-      setIsFollowing(true);
-    } catch (error) {
-      console.log(error);
-    }
+    const [success, data] = await invokeFunction("follow", { username });
+    if (success) setIsFollowing(true);
   };
 
   const unfollowUser = async () => {
-    try {
-      await supabase
-        .from("following")
-        .delete()
-        .eq("follower_id", auth?.data.user?.id)
-        .eq("following_id", user?.user_id);
-      setIsFollowing(false);
-    } catch (error) {
-      alert(error);
-    }
+    const [success, data] = await invokeFunction("unfollow", { username });
+    if (success) setIsFollowing(false);
   };
 
   return (
@@ -68,11 +50,11 @@ function Profile() {
       <div className="profile">
         <div className="profile__top">
           <div className="profile__topLeft">
-            <img src={getPublicUrl(data.user.user_id, "pfps")} />
+            <img src={getPublicUrl(data?.user?.user_id, "pfps")} />
           </div>
           <div className="profile__topRight">
             <div className="profile__topRightActions">
-              <h2>{user && user.username}</h2>
+              <h2>{data?.user && data?.user?.username}</h2>
 
               {data?.isUser ? (
                 <>

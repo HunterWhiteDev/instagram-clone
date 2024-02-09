@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar } from "../../Components/Sidebar";
 import "./Home.css";
-import Post from "../../Components/Post/Post";
+import Post from "../../Components/PostCard/PostCard";
 import { Stories } from "../../Components/Stories";
 import useFunction from "../../hooks/useFunction";
 function Home() {

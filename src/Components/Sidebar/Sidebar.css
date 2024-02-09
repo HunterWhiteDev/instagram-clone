@@ -29,7 +29,7 @@
   font-size: 20px;
   display: flex;
   align-items: center;
-  padding: 0.5rem 0.25rem;
+  padding: 0.25rem;
   border-radius: 0.5rem;
   cursor: pointer;
 }
@@ -38,21 +38,21 @@
   background-color: rgb(42, 42, 42);
 }
 
-.sidebar > ul > li > span {
+.sidebar > ul > li > .sidebar__optionText {
   margin-left: 5px;
 }
 
-/* 
-For hover effect. Not working right now but will fix later.
-.sidebar > ul > li:hover,
-.sidebar > ul > li > .MuiSvgIcon-root {
-  transform: scale(1.1);
+.sidebar__optionIcon > .MuiSvgIcon-root {
+  margin-top: 10px;
 }
 
-.sidebar > ul > li > span {
-  margin-left: 10px;
-  font-size: 16px;
-} */
+.sidebar__optionIcon {
+  transition: all 250ms ease-in-out;
+}
+
+.sidebar > ul > li:hover .sidebar__optionIcon {
+  transform: scale(1.15);
+}
 
 .sidebar__profile {
   padding: 0;

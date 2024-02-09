@@ -28,6 +28,7 @@
 
 .post__topMetaTimestamp {
   margin-left: 5px !important;
+  color: rgb(155, 155, 155);
 }
 
 .post__top > img {
@@ -38,6 +39,8 @@
 
 .post__middle {
   background-color: black;
+  display: flex;
+  align-items: center;
 }
 
 .post__middle > img {

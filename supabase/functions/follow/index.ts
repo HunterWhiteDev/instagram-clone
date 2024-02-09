@@ -14,6 +14,26 @@ Deno.serve(async (req) => {
         },
       }
     );
+    try {
+      const { username } = await req.json();
+      const auth = await supabase.auth.getUser();
+      const { error: userError, data: userData } = await supabase
+        .from("users")
+        .select("*")
+        .eq("username", username);
+
+      const user = userData[0];
+
+      await supabase.from("following").insert({
+        follower_id: auth?.data.user?.id,
+        following_id: user?.user_id,
+      });
+
+      data["success"] = true;
+    } catch (error) {
+      console.log(error);
+      data["success"] = false;
+    }
   }
 
   return new Response(JSON.stringify(data), {

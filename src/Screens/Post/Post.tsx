@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar } from "../../Components/Sidebar";
-import { Post as PostCard } from "../../Components/Post";
+import { Post as PostCard } from "../../Components/PostCard";
 import "./Post.css";
 import { useParams } from "react-router-dom";
 import supabase from "../../supabase";

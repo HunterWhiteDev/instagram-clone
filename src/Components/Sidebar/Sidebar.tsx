@@ -43,35 +43,59 @@ function Sidebar() {
 
         <ul>
           <li onClick={() => navigate("/home")}>
-            <HomeIcon /> <span> Home</span>
+            <span className="sidebar__optionIcon">
+              <HomeIcon />
+            </span>
+            <span className="sidebar__optionText"> Home</span>
           </li>
           <li>
-            <SearchIcon /> <span>Search</span>
+            <span className="sidebar__optionIcon">
+              <SearchIcon />
+            </span>
+            <span className="sidebar__optionText">Search</span>
           </li>
           <li>
-            <ExploreIcon /> <span>Explore</span>
+            <span className="sidebar__optionIcon">
+              <ExploreIcon />
+            </span>
+            <span className="sidebar__optionText">Explore</span>
           </li>
           <li>
-            <SmartScreenIcon /> <span>Reels</span>
+            <span className="sidebar__optionIcon">
+              <SmartScreenIcon />
+            </span>
+            <span className="sidebar__optionText">Reels</span>
           </li>
           <li>
-            <MessageIcon /> <span>Messages</span>
+            <span className="sidebar__optionIcon">
+              <MessageIcon />
+            </span>
+            <span className="sidebar__optionText">Messages</span>
           </li>
           <li>
-            <NotificationsIcon /> <span>Notifcations</span>
+            <span className="sidebar__optionIcon">
+              <NotificationsIcon />
+            </span>
+            <span className="sidebar__optionText">Notifcations</span>
           </li>
           <li onClick={() => setOpen(true)}>
-            <AddIcon /> <span>Create</span>
+            <span className="sidebar__optionIcon">
+              <AddIcon />
+            </span>
+            <span className="sidebar__optionText">Create</span>
           </li>
           <li
             className="sidebar__profile"
             onClick={() => navigate(`/profile/${user?.user_metadata.username}`)}
           >
-            <img
-              className="sidebar__pfp"
-              src={getPublicUrl(user?.id as string, "pfps")}
-            />
-            <p>Profile</p>
+            <span className="sidebar__optionIcon">
+              <img
+                className="sidebar__pfp"
+                src={getPublicUrl(user?.id as string, "pfps")}
+              />
+            </span>
+
+            <p className="sidebar__optionText">Profile</p>
           </li>
           <li onClick={signout}>Log Out</li>
         </ul>

@@ -46,7 +46,7 @@ Deno.serve(async (req) => {
       if (userData.length) user = userData[0];
       else console.log(userError);
 
-      data["user"] = { user };
+      data["user"] = user;
       postsId = user.user_id;
 
       const { error: followingError, data: followingData } = await supabase
