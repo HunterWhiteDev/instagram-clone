@@ -9,8 +9,6 @@ function Home() {
 
   const [loading, data] = useFunction("home");
 
-  console.log(data);
-
   return (
     <>
       <Sidebar />

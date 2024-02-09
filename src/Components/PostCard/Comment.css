@@ -1,0 +1,40 @@
+.comment {
+  display: flex;
+  align-items: center;
+}
+
+.comment__leftPfp {
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+}
+
+.comment__right {
+  margin-left: 5px;
+}
+
+.comment__rightUsername {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.comment__rightDate {
+  font-weight: 400;
+  font-size: 12px;
+  color: rgb(177, 177, 177);
+}
+
+.comment__rightText {
+  margin: 0;
+}
+
+.comment__trash {
+  display: none;
+  margin-left: auto;
+  margin-right: 10px;
+  color: rgba(255, 0, 0, 0.432);
+}
+
+.comment:hover .comment__trash {
+  display: block;
+}

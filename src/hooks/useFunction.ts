@@ -1,4 +1,4 @@
-//This hook invokes firebase functions. via the invokceFunction.ts file (Used for top level react)
+//This hook invokes supabase edge functions. via the invokceFunction.ts file (Used for top level react)
 import { useEffect, useState } from "react";
 import invokeFunction from "../utils/invokeFunction";
 
