@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import { storage, db } from "./firebase";
 import firebase from "firebase";
 import "./ImageUpload.css";
-function ImageUpload({ username }) {
+
+function ImageUpload({ username }: { username: string }) {
   const [image, setImage] = useState<Blob | null>(null);
   const [progress, setProgress] = useState(0);
   const [caption, setCpation] = useState("");
 
-  const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0]);
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target) return;
+    if (!e.target.files) return;
+
+    if (!e.target.files[0])
+      if (e.target.files[0]) {
+        setImage(e.target.files[0]);
+      }
   };
 
   const handleUpload = () => {
@@ -20,7 +25,7 @@ function ImageUpload({ username }) {
         "state_changed",
         (snapshot) => {
           const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
           );
           setProgress(progress);
         },
@@ -43,7 +48,7 @@ function ImageUpload({ username }) {
               setCpation("");
               setImage(null);
             });
-        }
+        },
       );
     }
   };

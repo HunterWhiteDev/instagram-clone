@@ -3,11 +3,19 @@ import React, { useEffect, useState } from "react";
 import { db } from "./firebase";
 import "./Post.css";
 import firebase from "firebase";
-function Post({ postId, username, caption, imageUrl, user }) {
+interface PostProps {
+  postId: string;
+  usenrame?: string;
+  caption?: string;
+  imageUrl?: string;
+  user: firebase.User;
+  username: string;
+}
+function Post({ postId, username, caption, imageUrl, user }: PostProps) {
   const [comments, setComments] = useState<any[]>([]);
   const [comment, setComment] = useState<string>("");
 
-  const postComment = (event) => {
+  const postComment = (event: React.FormEvent) => {
     event.preventDefault();
     db.collection("posts").doc(postId).collection("comments").add({
       text: comment,
@@ -18,7 +26,7 @@ function Post({ postId, username, caption, imageUrl, user }) {
   };
 
   useEffect(() => {
-    let unsubscribe;
+    let unsubscribe: () => any;
     if (postId) {
       unsubscribe = db
         .collection("posts")

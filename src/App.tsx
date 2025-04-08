@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Post from "./Post";
 import { auth, db } from "./firebase";
-import { Button, Input, makeStyles, Modal } from "@material-ui/core";
+import { Button, Input, Modal } from "@material-ui/core";
 import ImageUpload from "./ImageUpload";
-import {} from "firebase/auth";
 
 function App() {
   const [open, setOpen] = useState<boolean>(false);
@@ -42,19 +41,19 @@ function App() {
           snapshot.docs.map((doc) => ({
             id: doc.id,
             post: doc.data(),
-          }))
+          })),
         );
       });
   }, []);
 
-  const signUp = (event) => {
+  const signUp = (event: React.FormEvent) => {
     event.preventDefault();
     auth
       .createUserWithEmailAndPassword(email, password)
       .catch((error) => alert(error.message));
   };
 
-  const signIn = (event) => {
+  const signIn = (event: React.FormEvent) => {
     event.preventDefault();
     auth
       .signInWithEmailAndPassword(email as string, password as string)
