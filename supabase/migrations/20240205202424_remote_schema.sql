@@ -10,7 +10,7 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-CREATE EXTENSION IF NOT EXISTS "pgsodium" WITH SCHEMA "pgsodium";
+-- CREATE EXTENSION IF NOT EXISTS "pgsodium" WITH SCHEMA "pgsodium";
 
 CREATE SCHEMA IF NOT EXISTS "supabase_migrations";
 
@@ -111,8 +111,8 @@ ALTER TABLE ONLY "public"."users"
 ALTER TABLE ONLY "public"."users"
     ADD CONSTRAINT "users_username_key" UNIQUE ("username");
 
-ALTER TABLE ONLY "supabase_migrations"."schema_migrations"
-    ADD CONSTRAINT "schema_migrations_pkey" PRIMARY KEY ("version");
+-- ALTER TABLE ONLY "supabase_migrations"."schema_migrations"
+--    ADD CONSTRAINT "schema_migrations_pkey" PRIMARY KEY ("version");
 
 CREATE POLICY "Enable insert for users based on user_id" ON "public"."posts" FOR INSERT WITH CHECK (true);
 
