@@ -9,6 +9,7 @@ import { AuthUser } from "@supabase/supabase-js";
 import useFunction from "../../hooks/useFunction";
 import getPublicUrl from "../../utils/getPublicUrl";
 import invokeFunction from "../../utils/invokeFunction";
+import Avatar from "../../Components/Avatar/Avatar";
 interface User {
   username: string;
   user_id: string;
@@ -29,7 +30,7 @@ function Profile() {
   }, [username]);
 
   const [loading, data] = useFunction("profile", body, null, (res) =>
-    setIsFollowing(res.isFollowing as boolean)
+    setIsFollowing(res.isFollowing as boolean),
   );
 
   const navigate = useNavigate();
@@ -50,12 +51,14 @@ function Profile() {
       <div className="profile">
         <div className="profile__top">
           <div className="profile__topLeft">
-            <img src={getPublicUrl(data?.user?.user_id, "pfps")} />
+            <Avatar
+              avatarProps={{ sx: { width: "50px", height: "50px" } }}
+              username={username as string}
+            ></Avatar>
           </div>
           <div className="profile__topRight">
+            <p>{data?.user && data?.user?.username}</p>
             <div className="profile__topRightActions">
-              <h2>{data?.user && data?.user?.username}</h2>
-
               {data?.isUser ? (
                 <>
                   <button

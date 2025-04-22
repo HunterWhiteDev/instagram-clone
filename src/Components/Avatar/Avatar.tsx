@@ -1,0 +1,34 @@
+import { useEffect, useState } from "react";
+import supabase from "../../supabase.ts";
+import { Avatar as AvatarComponent, AvatarGroupProps } from "@mui/material";
+
+interface AvatarProps {
+  username: string;
+  avatarProps: AvatarGroupProps;
+}
+
+export default function Avatar({ username, avatarProps }: AvatarProps) {
+  const [pfpUrl, setPfpUrl] = useState("");
+  useEffect(() => {
+    const getData = async () => {
+      const { data, error } = await supabase
+        .from("users")
+        .select("pfp_url, username")
+        .eq("username", username)
+        .limit(1)
+        .single();
+      if (error) console.log("ERROR FETCHING URL: ", error);
+      else {
+        setPfpUrl(data.pfp_url || "");
+      }
+    };
+
+    getData();
+  }, []);
+
+  return (
+    <AvatarComponent {...avatarProps}>
+      {pfpUrl ? pfpUrl : username[0]}
+    </AvatarComponent>
+  );
+}

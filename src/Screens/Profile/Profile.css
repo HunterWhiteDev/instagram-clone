@@ -9,14 +9,19 @@
   justify-content: center;
 }
 
-.profile__topLeft > img {
-  height: 100px;
-  width: 100px;
-  border-radius: 100%;
-  margin-right: 2rem;
+.profile__topLeft {
+  display: flex;
+  align-items: center;
 }
 
-.profile__topRight > div {
+/* .profile__topLeft > img { */
+/*   height: 100px; */
+/*   width: 100px; */
+/*   border-radius: 100%; */
+/*   margin-right: 2rem; */
+/* } */
+/**/
+.profile__topRight>div {
   display: flex;
   align-items: center;
 }
@@ -31,16 +36,17 @@
   background-color: rgb(77, 77, 77);
   font-weight: bold;
 }
+
 .profileButton:hover {
   background-color: rgb(61, 61, 61);
   cursor: pointer;
 }
 
-.profile__topRightStats > span {
+.profile__topRightStats>span {
   margin-right: 1rem;
 }
 
-.profile__posts > hr {
+.profile__posts>hr {
   margin-bottom: 0;
   border-color: rgb(104, 104, 104);
 }
@@ -66,12 +72,13 @@
 .profile__postsAction:hover {
   background-color: rgb(47, 47, 47);
 }
+
 .selected {
   background-color: rgb(47, 47, 47);
   border-top: 1px solid white;
 }
 
-.profile__postsAction > p {
+.profile__postsAction>p {
   margin-top: 10px;
 }
 
@@ -83,7 +90,7 @@
   padding: 0 auto;
 }
 
-.profile__postsGrid > div {
+.profile__postsGrid>div {
   background-color: black;
   box-sizing: border-box;
   width: calc(33% - 1.2rem);
@@ -92,7 +99,7 @@
   height: 300px;
 }
 
-.profile__postsGrid > div > img {
+.profile__postsGrid>div>img {
   object-fit: contain;
   cursor: pointer;
   max-width: 100%;
