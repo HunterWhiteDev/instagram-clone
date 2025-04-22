@@ -90,7 +90,10 @@ function Sidebar() {
             onClick={() => navigate(`/profile/${user?.user_metadata.username}`)}
           >
             <span className="sidebar__optionIcon">
-              <Avatar username={user?.user_metadata.username} />
+              <Avatar
+                avatarProps={{ sx: { width: "30px", height: "30px" } }}
+                username={user?.user_metadata.username}
+              />
             </span>
 
             <p className="sidebar__optionText">Profile</p>
