@@ -48,48 +48,53 @@ function Profile() {
   return (
     <>
       <Sidebar />
-      <div className="profile">
-        <div className="profile__top">
-          <div className="profile__topLeft">
+      <div className="ml-[22.5vw] pt-[5vh] w-[75%]">
+        <div className="flex justify-center items-center gap-4">
+          <div className="">
             <Avatar
-              avatarProps={{ sx: { width: "50px", height: "50px" } }}
+              avatarProps={{ sx: { width: "60px", height: "60px" } }}
               username={username as string}
             ></Avatar>
           </div>
-          <div className="profile__topRight">
-            <p>{data?.user && data?.user?.username}</p>
-            <div className="profile__topRightActions">
+          <div className="flex flex-col gap-2">
+            <div className="text-2xl font-bold text-left bg-red">
+              {data?.user && data?.user?.username}
+            </div>
+            <div className="flex gap-2">
               {data?.isUser ? (
                 <>
                   <button
-                    className="profileButton"
+                    className="bg-gray-600 p-1 rounded-md cursor-pointer hover:bg-gray-500"
                     onClick={() => navigate("/profile/edit")}
                   >
                     Edit Profile
                   </button>
-                  <button className="profileButton"> Archive </button>{" "}
+                  <button className="bg-gray-600 p-1 rounded-md cursor-pointer hover:bg-gray-500">
+                    {" "}
+                    Archive{" "}
+                  </button>{" "}
                 </>
               ) : (
                 <button
-                  className="profileButton"
+                  className="bg-gray-600 p-1 rounded-md"
                   onClick={isFollowing ? unfollowUser : followUser}
                 >
                   {isFollowing ? "Unfollow" : "Follow"}
                 </button>
               )}
             </div>
-            <div className="profile__topRightStats">
+            <div className="flex gap-4">
               <span>12 posts</span>
               <span>53 followers</span>
               <span>53 following</span>
             </div>
-            <div className="profie__topRightDetails"></div>
+            <div className=""></div>
           </div>
         </div>
-        <div className="profile__stories"></div>
-        <div className="profile__posts">
+        <div className=""></div>
+        <div className="">
           <hr />
-          <div className="profile__postsActions">
+          <div className="flex justify-center">
             <div
               className={`profile__postsAction ${
                 selected === "posts" && "selected"
@@ -121,8 +126,8 @@ function Profile() {
               <p>TAGGED</p>
             </div>
           </div>
-          <div className="profile__postsGridContainer">
-            <div className="profile__postsGrid">
+          <div className="">
+            <div className="">
               {!loading &&
                 data?.posts?.map((post) => (
                   <div>
