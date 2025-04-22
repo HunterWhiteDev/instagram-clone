@@ -28,7 +28,7 @@ export default function Avatar({ username, avatarProps }: AvatarProps) {
 
   return (
     <AvatarComponent {...avatarProps}>
-      {pfpUrl ? pfpUrl : username[0]}
+      {pfpUrl ? pfpUrl : username[0].toUpperCase()}
     </AvatarComponent>
   );
 }

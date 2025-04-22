@@ -12,6 +12,7 @@ import supabase from "../../supabase";
 import { useNavigate } from "react-router-dom";
 import getPublicUrl from "../../utils/getPublicUrl";
 import { User } from "@supabase/supabase-js";
+import Avatar from "../Avatar/Avatar";
 function Sidebar() {
   const [open, setOpen] = useState(false);
 
@@ -89,10 +90,7 @@ function Sidebar() {
             onClick={() => navigate(`/profile/${user?.user_metadata.username}`)}
           >
             <span className="sidebar__optionIcon">
-              <img
-                className="sidebar__pfp"
-                src={getPublicUrl(user?.id as string, "pfps")}
-              />
+              <Avatar username={user?.user_metadata.username} />
             </span>
 
             <p className="sidebar__optionText">Profile</p>
