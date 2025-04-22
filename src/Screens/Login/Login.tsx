@@ -17,8 +17,10 @@ function Login() {
     });
 
     console.log(data);
-    if (error) alert(error.message);
-    else if (data) navigate("/home");
+    if (error) {
+      console.log({ error });
+      alert(error.message);
+    } else if (data) navigate("/home");
   };
 
   return (
