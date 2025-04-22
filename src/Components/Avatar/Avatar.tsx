@@ -7,7 +7,7 @@ interface AvatarProps {
   avatarProps: AvatarGroupProps;
 }
 
-export default function Avatar({ username, avatarProps }: AvatarProps) {
+export default function Avatar({ username = "", avatarProps }: AvatarProps) {
   const [pfpUrl, setPfpUrl] = useState("");
   useEffect(() => {
     const getData = async () => {
@@ -28,7 +28,7 @@ export default function Avatar({ username, avatarProps }: AvatarProps) {
 
   return (
     <AvatarComponent {...avatarProps}>
-      {pfpUrl ? pfpUrl : username[0].toUpperCase()}
+      {pfpUrl ? pfpUrl : username[0]?.toUpperCase()}
     </AvatarComponent>
   );
 }
