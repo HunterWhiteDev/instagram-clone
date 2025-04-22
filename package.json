@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run start",
-    "start": "concurrently \"supabase start\" \"vite\"",
+    "restart": "vite",
+    "up": "concurrently \"supabase start\" \"vite\"",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -17,6 +17,7 @@
     "@mui/icons-material": "^5.15.3",
     "@mui/material": "^5.15.3",
     "@supabase/supabase-js": "^2.39.2",
+    "@tailwindcss/vite": "^4.1.4",
     "@types/lodash": "^4.14.202",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
@@ -25,7 +26,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "tailwindcss": "^4.1.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
