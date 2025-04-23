@@ -1,4 +1,3 @@
-import "./Sidebar.css";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import ExploreIcon from "@mui/icons-material/Explore";
@@ -6,13 +5,13 @@ import SmartScreenIcon from "@mui/icons-material/SmartScreen";
 import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AddIcon from "@mui/icons-material/Add";
-import { CreateModal } from "../CreateModal";
-import { useEffect, useState } from "react";
-import supabase from "../../supabase";
+import CreateModal from "../CreateModal/CreateModal.tsx";
+import React, { useEffect, useState } from "react";
+import supabase from "../../supabase.ts";
 import { useNavigate } from "react-router-dom";
 import getPublicUrl from "../../utils/getPublicUrl";
 import { User } from "@supabase/supabase-js";
-import Avatar from "../Avatar/Avatar";
+import Avatar from "../Avatar/Avatar.tsx";
 function Sidebar() {
   const [open, setOpen] = useState(false);
 
@@ -42,12 +41,12 @@ function Sidebar() {
         {/* Image here */}
         <img src="https://i.pinimg.com/originals/57/6c/dd/576cdd470fdc0b88f4ca0207d2b471d5.png" />
 
-        <ul>
+        <ul className="[&>li]:cursor-pointer [&>li]:my-2 [&>li>span]:mx-1">
           <li onClick={() => navigate("/home")}>
             <span className="[transition:all_250ms_ease-in-out]">
               <HomeIcon />
             </span>
-            <span className="sidebar__optionText"> Home</span>
+            <span className="sidebar__optionText">Home</span>
           </li>
           <li>
             <span className="[transition:all_250ms_ease-in-out]">
@@ -86,17 +85,17 @@ function Sidebar() {
             <span className="sidebar__optionText">Create</span>
           </li>
           <li
-            className="p-0 m-0 h-[35px]"
+            className="flex items-center"
             onClick={() => navigate(`/profile/${user?.user_metadata.username}`)}
           >
-            <span className="[transition:all_250ms_ease-in-out]">
+            <span className="[transition:all_250ms_ease-in-out] mt-28">
               <Avatar
                 avatarProps={{ sx: { width: "30px", height: "30px" } }}
                 username={user?.user_metadata.username}
               />
             </span>
 
-            <p className="sidebar__optionText">Profile</p>
+            <span className="mt-auto">Profile</span>
           </li>
           <li onClick={signout}>Log Out</li>
         </ul>
