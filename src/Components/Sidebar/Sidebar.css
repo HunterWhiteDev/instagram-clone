@@ -7,24 +7,22 @@
   padding-right: 0.5rem;
   position: fixed;
   width: 15vw;
-
-  background-color: var(--gray);
 }
 
-.sidebar > img {
+.sidebar>img {
   object-fit: contain;
   height: 35px;
   margin-top: 25px;
   filter: brightness(100);
 }
 
-.sidebar > ul {
+.sidebar>ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.sidebar > ul > li {
+.sidebar>ul>li {
   margin: 0.5rem 0;
   font-size: 20px;
   display: flex;
@@ -34,15 +32,15 @@
   cursor: pointer;
 }
 
-.sidebar > ul > li:hover {
+.sidebar>ul>li:hover {
   background-color: rgb(42, 42, 42);
 }
 
-.sidebar > ul > li > .sidebar__optionText {
+.sidebar>ul>li>.sidebar__optionText {
   margin-left: 5px;
 }
 
-.sidebar__optionIcon > .MuiSvgIcon-root {
+.sidebar__optionIcon>.MuiSvgIcon-root {
   margin-top: 10px;
 }
 
@@ -50,7 +48,7 @@
   transition: all 250ms ease-in-out;
 }
 
-.sidebar > ul > li:hover .sidebar__optionIcon {
+.sidebar>ul>li:hover .sidebar__optionIcon {
   transform: scale(1.15);
 }
 

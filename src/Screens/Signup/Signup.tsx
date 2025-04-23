@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Signup.css";
 import supabase from "../../supabase";
 import { useNavigate } from "react-router-dom";
 import { AuthResponse, User } from "@supabase/supabase-js";
@@ -45,8 +44,8 @@ function Signup() {
   };
 
   return (
-    <div className="signup">
-      <div className="signup__top">
+    <div className="w-[300px] !mx-[auto] !my-[0] flex justify-center flex-col text-center pt-[5vh]">
+      <div className="border-[1px] border-solid border-[gray] p-8">
         <img src="https://i.pinimg.com/originals/57/6c/dd/576cdd470fdc0b88f4ca0207d2b471d5.png" />
 
         <p>Sign up to see photos and videos from your friends.</p>
@@ -86,7 +85,7 @@ function Signup() {
           </button>
         </form>
       </div>
-      <div className="signup__bottom">
+      <div className="border-[1px] border-solid border-[gray] mt-2">
         <p>
           Already have an account?{" "}
           <span onClick={() => navigate("/login")}>Login</span>

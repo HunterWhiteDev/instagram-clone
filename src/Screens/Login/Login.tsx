@@ -1,4 +1,3 @@
-import "./Login.css";
 import MainImage from "../../assets/MainImage.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -24,12 +23,12 @@ function Login() {
   };
 
   return (
-    <div className="login">
+    <div className="flex justify-center gap-[50px] mt-[5vh]">
       <div className="login__left">
         <img src={MainImage} />
       </div>
-      <div className="login__right">
-        <div className="login__rightLogin">
+      <div className="w-[20vw]">
+        <div className="flex flex-col">
           <img src="https://i.pinimg.com/originals/57/6c/dd/576cdd470fdc0b88f4ca0207d2b471d5.png" />
 
           <form onSubmit={handleLogin}>
@@ -52,15 +51,15 @@ function Login() {
               Log in
             </button>
           </form>
-          <div className="login__loginRightOrText">
+          <div className="flex items-center mt-4">
             <hr /> <span>OR</span> <hr />
           </div>
 
-          <p className="login__loginRightForgotPasswordText">
+          <p className="mx-[auto] my-[0] text-[lightblue] mt-4 text-[14px] cursor-pointer">
             Forgot Password?
           </p>
         </div>
-        <div className="login__rightSignUp">
+        <div className="border-[1px] border-solid border-[gray] flex justify-center mt-2">
           <p>
             Don't have an account?{" "}
             <span onClick={() => navigate("/signup")}>Sign up</span>

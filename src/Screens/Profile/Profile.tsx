@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { Sidebar } from "../../Components/Sidebar";
-import "./Profile.css";
 import { useNavigate, useParams } from "react-router-dom";
 import GridViewIcon from "@mui/icons-material/GridView";
 import BookmarkIcon from "@mui/icons-material/Bookmark";

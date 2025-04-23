@@ -38,23 +38,23 @@ function Comment({
   };
 
   return (
-    <div className="comment">
+    <div className="flex items-center">
       <div className="comment__left">
         <img
-          className="comment__leftPfp"
+          className="w-[35px] h-[35px] rounded-[100%]"
           src={getPublicUrl(commenter_id, "pfps")}
         />
       </div>
-      <div className="comment__right">
-        <span className="comment__rightUsername">
+      <div className="ml-[5px]">
+        <span className="text-[18px] font-bold">
           {username}{" "}
-          <span className="comment__rightDate">
+          <span className="font-normal text-[12px] text-[rgb(177,_177,_177)]">
             {moment(created_at).fromNow()}
           </span>
         </span>
-        <p className="comment__rightText">{comment_text}</p>
+        <p className="m-0">{comment_text}</p>
       </div>
-      <div onClick={deleteComment} className="comment__trash">
+      <div onClick={deleteComment} className="hidden ml-auto mr-[10px] text-[rgba(255,_0,_0,_0.432)]">
         <DeleteIcon />
       </div>
     </div>

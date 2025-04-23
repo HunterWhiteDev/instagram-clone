@@ -67,24 +67,24 @@ function PostCard({
   };
 
   return (
-    <div className="post" onClick={handleNavigation}>
-      <div ref={userRef} className="post__top">
+    <div className="border-[1px] border-solid border-[rgba(128,128,128,0.341)] rounded-lg cursor-pointer mb-4" onClick={handleNavigation}>
+      <div ref={userRef} className="flex items-center pl-[5px] pt-[5px] pb-[5px]">
         <img src={getPublicUrl(user_id, "pfps")} />
-        <div className="post__topMeta">
+        <div className="flex">
           <p>
             <span>{username}</span>
             <br />
             <span>{location}</span>
           </p>
-          <p className="post__topMetaTimestamp">
+          <p className="!ml-[5px] text-[rgb(155,_155,_155)]">
             {moment(created_at).startOf("hour").fromNow()}
           </p>
         </div>
       </div>
-      <div className="post__middle" onClick={() => navigate(`/post/${id}`)}>
+      <div className="bg-[black] flex items-center" onClick={() => navigate(`/post/${id}`)}>
         <img src={getPublicUrl(images[0], "posts")} />
       </div>
-      <div className="post__bottom">
+      <div className="pl-[5px] pt-[5px] pb-[5px]">
         <div className="post_bottomButtons">
           <FavoriteBorderIcon />
           <ModeCommentOutlinedIcon />

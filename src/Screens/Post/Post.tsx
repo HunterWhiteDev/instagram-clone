@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar } from "../../Components/Sidebar";
 import { Post as PostCard } from "../../Components/PostCard";
-import "./Post.css";
 import { useParams } from "react-router-dom";
 import supabase from "../../supabase";
 function Post() {
@@ -23,7 +22,7 @@ function Post() {
   return (
     <>
       <Sidebar />
-      <div className="postScren">{post ? <PostCard {...post} /> : null}</div>
+      <div className="pt-4">{post ? <PostCard {...post} /> : null}</div>
     </>
   );
 }

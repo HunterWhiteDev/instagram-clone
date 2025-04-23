@@ -4,6 +4,7 @@ import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import uploadFile from "../../utils/uploadFile";
 import supabase from "../../supabase";
 import { useNavigate } from "react-router-dom";
+import invokeFunction from "../../utils/invokeFunction.ts";
 
 interface CreateModalProps {
   open: boolean;
@@ -43,32 +44,35 @@ function CreateModal({ setOpen }: CreateModalProps) {
 
   const upload = async (e: React.FormEvent) => {
     e.preventDefault();
-    const uuid = crypto.randomUUID();
-    if (file) await uploadFile(file, "posts", `${uuid}`);
+    const result = await invokeFunction("addPost");
 
-    const user = await supabase.auth.getUser();
-
-    const uploadRes = await supabase
-      .from("posts")
-      .insert({
-        user_id: user.data.user?.id,
-        images: [uuid],
-        description,
-      })
-      .select("*");
-
-    uploadRes.data && navigate(`/post/${uploadRes.data[0].id}`);
+    console.log({ result });
+    // const uuid = crypto.randomUUID();
+    // if (file) await uploadFile(file, "posts", `${uuid}`);
+    //
+    // const user = await supabase.auth.getUser();
+    //
+    // const uploadRes = await supabase
+    //   .from("posts")
+    //   .insert({
+    //     user_id: user.data.user?.id,
+    //     images: [uuid],
+    //     description,
+    //   })
+    //   .select("*");
+    //
+    // uploadRes.data && navigate(`/post/${uploadRes.data[0].id}`);
   };
 
   return (
-    <div className="createModal__bkg" onClick={handleClose}>
-      <div className="createModal__content">
-        <div className="createModal__contentTop">
+    <div className="absolute h-screen w-screen top-[0] right-[0] bg-[rgba(0,_0,_0,_0.5)]" onClick={handleClose}>
+      <div className="bg-[black] w-[33vw] h-3/4 m-auto mt-[1vh] rounded-2xl [box-shadow:0px_0px_100px_black]">
+        <div className="text-center [border-bottom:1px_solid_gray]">
           <p>Create new post</p>
         </div>
         <div className="createModal__contentMiddle">
           {!file ? (
-            <div className="creatModal__contentMiddlePrompt">
+            <div className="mt-[25%] flex flex-col items-center">
               <InsertPhotoOutlinedIcon />
               <h3>Drag photos and vidoes here</h3>
               <button

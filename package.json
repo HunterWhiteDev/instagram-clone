@@ -6,6 +6,7 @@
   "scripts": {
     "restart": "vite",
     "up": "concurrently \"supabase start\" \"vite\"",
+    "db:reset": "supabase db reset",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -19,6 +20,9 @@
     "@supabase/supabase-js": "^2.39.2",
     "@tailwindcss/vite": "^4.1.4",
     "@types/lodash": "^4.14.202",
+    "@types/node": "^22.14.1",
+    "@types/tailwindcss": "^3.0.11",
+    "css-to-tailwind-translator": "^1.2.8",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
     "match-sorter": "^6.3.1",

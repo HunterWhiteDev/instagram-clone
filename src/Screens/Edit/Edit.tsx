@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Sidebar } from "../../Components/Sidebar";
-import "./Edit.css";
 import supabase from "../../supabase";
 import uploadFile from "../../utils/uploadFile";
 import { AuthUser } from "@supabase/supabase-js";
@@ -27,9 +26,9 @@ function Edit() {
     () =>
       debounce(
         (field: string, input: string) => updateFieldHandler(field, input),
-        500
+        500,
       ),
-    []
+    [],
   );
 
   const getPfp = async () => {
@@ -78,10 +77,10 @@ function Edit() {
   return (
     <>
       <Sidebar />
-      <div className="edit">
-        <div className="edit__form">
-          <div className="edit__formPfp">
-            <div className="edit__formPfpLeft">
+      <div className="ml-[calc(15vw + 1rem)]">
+        <div className="mx-[auto] my-[0] flex items-center flex-col">
+          <div className="flex justify-between">
+            <div className="flex items-center">
               <img src={pfp} />
               <p>
                 <span>Name</span>
@@ -89,7 +88,7 @@ function Edit() {
                 <span>Email</span>
               </p>
             </div>
-            <div className="edit__formPfpRight">
+            <div className="mt-2">
               <button
                 onClick={() => uploadInputRef.current.click()}
                 className="blueButton"
