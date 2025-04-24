@@ -10,6 +10,7 @@ import invokeFunction from "../../utils/invokeFunction";
 import useFunction from "../../hooks/useFunction";
 import Comment from "./Comment";
 import { CommentProps } from "./Comment";
+import Avatar from "../Avatar/Avatar";
 function PostCard({
   id,
   location = "",
@@ -75,9 +76,9 @@ function PostCard({
         ref={userRef}
         className="flex items-center pl-[5px] pt-[5px] pb-[5px]"
       >
-        <img src={getPublicUrl(user_id, "pfps")} />
+        <Avatar username={username[0]?.toUpperCase()} />
         <div className="flex">
-          <p>
+          <p className="ml-2">
             <span>{username}</span>
             <br />
             <span>{location}</span>

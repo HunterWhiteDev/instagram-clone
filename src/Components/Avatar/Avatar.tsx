@@ -4,7 +4,7 @@ import { Avatar as AvatarComponent, AvatarGroupProps } from "@mui/material";
 
 interface AvatarProps {
   username: string;
-  avatarProps: AvatarGroupProps;
+  avatarProps?: AvatarGroupProps;
 }
 
 export default function Avatar({ username = "", avatarProps }: AvatarProps) {
@@ -27,8 +27,10 @@ export default function Avatar({ username = "", avatarProps }: AvatarProps) {
   }, []);
 
   return (
-    <AvatarComponent {...avatarProps}>
-      {pfpUrl ? pfpUrl : username[0]?.toUpperCase()}
-    </AvatarComponent>
+    <div className="z-0">
+      <AvatarComponent {...avatarProps} sx={{ zIndex: "0" }}>
+        {pfpUrl ? pfpUrl : username[0]?.toUpperCase()}
+      </AvatarComponent>
+    </div>
   );
 }

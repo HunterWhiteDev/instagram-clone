@@ -5,6 +5,7 @@ import uploadFile from "../../utils/uploadFile";
 import supabase from "../../supabase";
 import { useNavigate } from "react-router-dom";
 import invokeFunction from "../../utils/invokeFunction.ts";
+import useAuth from "../../hooks/useAuth.ts";
 
 interface CreateModalProps {
   open: boolean;
@@ -18,6 +19,8 @@ interface InsertResponse {
 }
 
 function CreateModal({ setOpen }: CreateModalProps) {
+  const user = useAuth();
+
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File>();
   const [fileUrl, setFileUrl] = useState<string>();
@@ -55,14 +58,12 @@ function CreateModal({ setOpen }: CreateModalProps) {
     const uuid = crypto.randomUUID();
     if (file) await uploadFile(file, "posts", `${uuid}`);
 
-    const user = await supabase.auth.getUser();
-
     const uploadRes = await supabase
       .from("posts")
       .insert({
-        user_id: user.data.user?.id,
         images: [uuid],
         description,
+        user_id: user?.id,
       })
       .select("*");
 
