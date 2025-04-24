@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import GridViewIcon from "@mui/icons-material/GridView";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import PortraitIcon from "@mui/icons-material/Portrait";
-import { AuthUser } from "@supabase/supabase-js";
 import useFunction from "../../hooks/useFunction";
 import getPublicUrl from "../../utils/getPublicUrl";
 import invokeFunction from "../../utils/invokeFunction";
@@ -75,7 +74,7 @@ function Profile() {
                 </>
               ) : (
                 <button
-                  className="bg-gray-600 p-1 rounded-md"
+                  className="bg-gray-600 p-1 rounded-md cursor-pointer"
                   onClick={isFollowing ? unfollowUser : followUser}
                 >
                   {isFollowing ? "Unfollow" : "Follow"}
@@ -93,7 +92,7 @@ function Profile() {
         <div className=""></div>
         <div className="">
           <hr />
-          <div className="flex justify-center">
+          <div className="flex justify-center [&>div]:flex [&>div]:items-center [&>div:hover]:bg-[rgba(255,255,255,0.20)] [&>div]:cursor-pointer [&>div]:p-2 [&>div]:rounded-b-lg gap-8">
             <div
               className={`profile__postsAction ${
                 selected === "posts" && "selected"
