@@ -39,34 +39,42 @@ function CreateModal({ setOpen }: CreateModalProps) {
         setFileUrl(reader.result as string);
       };
       reader.readAsDataURL(file);
+
+      const res = await invokeFunction("addPost", {
+        image: file,
+        description,
+      });
+
+      console.log({ res });
     }
   };
 
   const upload = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await invokeFunction("addPost");
 
-    console.log({ result });
-    // const uuid = crypto.randomUUID();
-    // if (file) await uploadFile(file, "posts", `${uuid}`);
-    //
-    // const user = await supabase.auth.getUser();
-    //
-    // const uploadRes = await supabase
-    //   .from("posts")
-    //   .insert({
-    //     user_id: user.data.user?.id,
-    //     images: [uuid],
-    //     description,
-    //   })
-    //   .select("*");
-    //
-    // uploadRes.data && navigate(`/post/${uploadRes.data[0].id}`);
+    const uuid = crypto.randomUUID();
+    if (file) await uploadFile(file, "posts", `${uuid}`);
+
+    const user = await supabase.auth.getUser();
+
+    const uploadRes = await supabase
+      .from("posts")
+      .insert({
+        user_id: user.data.user?.id,
+        images: [uuid],
+        description,
+      })
+      .select("*");
+
+    uploadRes.data && navigate(`/post/${uploadRes.data[0].id}`);
   };
 
   return (
-    <div className="absolute h-screen w-screen top-[0] right-[0] bg-[rgba(0,_0,_0,_0.5)]" onClick={handleClose}>
-      <div className="bg-[black] w-[33vw] h-3/4 m-auto mt-[1vh] rounded-2xl [box-shadow:0px_0px_100px_black]">
+    <div
+      className="fixed h-screen w-screen top-[0] right-[0] bg-[rgba(0,_0,_0,_0.5)]"
+      onClick={handleClose}
+    >
+      <div className="bg-[var(--gray)] w-[33vw] h-3/4 m-auto mt-[1vh] rounded-2xl [box-shadow:0px_0px_100px_black] !z-[1000]">
         <div className="text-center [border-bottom:1px_solid_gray]">
           <p>Create new post</p>
         </div>
@@ -81,7 +89,12 @@ function CreateModal({ setOpen }: CreateModalProps) {
               >
                 Select photos from computer
               </button>
-              <input onChange={onFileSelect} ref={inputRef} type="file" />
+              <input
+                onChange={onFileSelect}
+                ref={inputRef}
+                type="file"
+                className="invisible"
+              />
             </div>
           ) : (
             <img src={fileUrl} />
