@@ -11,16 +11,17 @@ import useFunction from "../../hooks/useFunction";
 import Comment from "./Comment";
 import { CommentProps } from "./Comment";
 import Avatar from "../Avatar/Avatar";
+import { Posts } from "../../../types/collection.ts";
 function PostCard({
   id,
   location = "",
   like_count = "5",
   description = "desc",
   user_id = "",
-  created_at = new Date().getTime(),
+  created_at = Date().getTime(),
   images = [""],
   // username = "name",
-}) {
+}: Posts) {
   const [commentText, setCommentText] = useState<string>("");
 
   const [comments, setComments] = useState<CommentProps[]>([]);
@@ -107,6 +108,7 @@ function PostCard({
         ))}
         <form ref={formRef} onSubmit={addComment}>
           <input
+            className="w-full outline-0"
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             placeholder="Add a comment..."
