@@ -41,7 +41,7 @@ function Sidebar() {
         {/* Image here */}
         <img src="https://i.pinimg.com/originals/57/6c/dd/576cdd470fdc0b88f4ca0207d2b471d5.png" />
 
-        <ul className="[&>li]:cursor-pointer [&>li]:my-2 [&>li>span]:mx-1">
+        <ul className="[&>li]:cursor-pointer [&>li]:my-6 [&>li>span]:mx-1 [&>li:hover>span>.MuiSvgIcon-root]:scale-110">
           <li onClick={() => navigate("/home")}>
             <span className="[transition:all_250ms_ease-in-out]">
               <HomeIcon />
@@ -88,7 +88,7 @@ function Sidebar() {
             className="flex items-center"
             onClick={() => navigate(`/profile/${user?.user_metadata.username}`)}
           >
-            <span className="[transition:all_250ms_ease-in-out] mt-28">
+            <span className="[transition:all_250ms_ease-in-out] mt-8">
               <Avatar
                 avatarProps={{ sx: { width: "30px", height: "30px" } }}
                 username={user?.user_metadata.username}
