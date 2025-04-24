@@ -34,13 +34,13 @@ function PostCard({
   }, [id]);
 
   const [success, data] = useFunction("getComments", body, null, (res) =>
-    setComments(res.comments)
+    setComments(res.comments),
   );
 
   const handleNavigation = (e: React.MouseEvent<HTMLDivElement>) => {
     if (userRef.current) {
       const checkUser = (userRef.current as HTMLElement).contains(
-        e.target as Node
+        e.target as Node,
       );
 
       if (checkUser) navigate(`/profile/${username}`);
@@ -67,8 +67,14 @@ function PostCard({
   };
 
   return (
-    <div className="border-[1px] border-solid border-[rgba(128,128,128,0.341)] rounded-lg cursor-pointer mb-4" onClick={handleNavigation}>
-      <div ref={userRef} className="flex items-center pl-[5px] pt-[5px] pb-[5px]">
+    <div
+      className="border-[1px] border-solid border-[rgba(128,128,128,0.341)] rounded-lg cursor-pointer mb-4"
+      onClick={handleNavigation}
+    >
+      <div
+        ref={userRef}
+        className="flex items-center pl-[5px] pt-[5px] pb-[5px]"
+      >
         <img src={getPublicUrl(user_id, "pfps")} />
         <div className="flex">
           <p>
@@ -81,8 +87,11 @@ function PostCard({
           </p>
         </div>
       </div>
-      <div className="bg-[black] flex items-center" onClick={() => navigate(`/post/${id}`)}>
-        <img src={getPublicUrl(images[0], "posts")} />
+      <div
+        className="bg-[black] flex items-center"
+        onClick={() => navigate(`/post/${id}`)}
+      >
+        <img className="object-cover" src={getPublicUrl(images[0], "posts")} />
       </div>
       <div className="pl-[5px] pt-[5px] pb-[5px]">
         <div className="post_bottomButtons">

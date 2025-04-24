@@ -22,7 +22,9 @@ function Post() {
   return (
     <>
       <Sidebar />
-      <div className="pt-4">{post ? <PostCard {...post} /> : null}</div>
+      <div className="pt-4 ml-[32.5vw] w-[35vw] ">
+        {post ? <PostCard {...post} /> : null}
+      </div>
     </>
   );
 }
