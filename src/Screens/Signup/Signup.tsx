@@ -44,9 +44,9 @@ function Signup() {
   };
 
   return (
-    <div className="w-[300px] !mx-[auto] !my-[0] flex justify-center flex-col text-center pt-[5vh]">
-      <div className="border-[1px] border-solid border-[gray] p-8">
-        <img src="https://i.pinimg.com/originals/57/6c/dd/576cdd470fdc0b88f4ca0207d2b471d5.png" />
+    <div className="w-[300px] !mx-[auto] !my-[0] flex justify-center flex-col gap-2 text-center pt-[5vh]">
+      <div className="border-[1px] border-solid border-[gray] p-8 flex flex-col gap-4">
+        <img src="https://www.pngkey.com/png/full/1-13459_instagram-font-logo-white-png-instagram-white-text.png" />
 
         <p>Sign up to see photos and videos from your friends.</p>
 
@@ -85,10 +85,15 @@ function Signup() {
           </button>
         </form>
       </div>
-      <div className="border-[1px] border-solid border-[gray] mt-2">
+      <div className="border-[1px] border-solid border-[gray] mt-2 p-1">
         <p>
           Already have an account?{" "}
-          <span onClick={() => navigate("/login")}>Login</span>
+          <span
+            className="text-[lightblue] cursor-pointer"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </span>
         </p>
       </div>
     </div>

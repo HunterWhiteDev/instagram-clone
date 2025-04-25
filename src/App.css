@@ -17,6 +17,7 @@
   font-weight: bold;
   background-color: #0098fd;
   cursor: pointer;
+  padding: 0.25rem 0.5rem;
 }
 
 .blueButton:hover {
