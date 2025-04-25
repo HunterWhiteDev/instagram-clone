@@ -56,7 +56,7 @@ function CreateModal({ setOpen }: CreateModalProps) {
     e.preventDefault();
 
     const uuid = crypto.randomUUID();
-    if (file) await uploadFile(file, "posts", `${uuid}`);
+    if (file) await uploadFile(file, "posts", `${user?.id}/${uuid}`);
 
     const uploadRes = await supabase
       .from("posts")
@@ -103,18 +103,20 @@ function CreateModal({ setOpen }: CreateModalProps) {
         </div>
 
         {file ? (
-          <div className="createModal__bottom">
-            <form onSubmit={upload}>
-              <input
-                placeholder="Add description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <button type="submit" className="blueButton">
-                Upload
-              </button>
-            </form>
-          </div>
+          <form
+            className="bg-[var(--gray)] flex items-center p-4"
+            onSubmit={upload}
+          >
+            <input
+              className="w-[90%] outline-0"
+              placeholder="Add description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <button type="submit" className="blueButton mt-0">
+              Upload
+            </button>
+          </form>
         ) : null}
       </div>
     </div>
