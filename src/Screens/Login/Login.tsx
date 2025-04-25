@@ -19,7 +19,7 @@ function Login() {
     if (error) {
       console.log({ error });
       alert(error.message);
-    } else if (data) navigate("/home");
+    } else if (data) navigate("/");
   };
 
   return (
