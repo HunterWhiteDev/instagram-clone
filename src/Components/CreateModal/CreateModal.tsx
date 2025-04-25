@@ -76,8 +76,8 @@ function CreateModal({ setOpen }: CreateModalProps) {
       onClick={handleClose}
     >
       <div className="bg-[var(--gray)] lg:w-[33vw] md:w-[50vw] w-[75vw] h-3/4 m-auto mt-[1vh] rounded-2xl [box-shadow:0px_0px_100px_black] !z-[1000]">
-        <div className="text-center [border-bottom:1px_solid_gray]">
-          <p>Create new post</p>
+        <div className="text-center [border-bottom:1px_solid_gray] p-4">
+          <p className="text-2xl">Create new post</p>
         </div>
         <div className="createModal__contentMiddle">
           {!file ? (

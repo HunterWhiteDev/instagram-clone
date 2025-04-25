@@ -89,14 +89,14 @@ function Sidebar() {
                   navigate(`/profile/${user?.user_metadata.username}`)
                 }
               >
-                <span className="[transition:all_250ms_ease-in-out] mt-8">
+                <span className="[transition:all_250ms_ease-in-out] ">
                   <Avatar
                     avatarProps={{ sx: { width: "30px", height: "30px" } }}
                     username={user?.user_metadata.username}
                   />
                 </span>
 
-                <span className="mt-auto">Profile</span>
+                <span>Profile</span>
               </li>
               <li onClick={signout}>Log Out</li>
             </>

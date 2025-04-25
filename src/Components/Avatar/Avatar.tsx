@@ -28,7 +28,10 @@ export default function Avatar({ username = "", avatarProps }: AvatarProps) {
 
   return (
     <div className="z-0">
-      <AvatarComponent {...avatarProps} sx={{ zIndex: "-1 !important" }}>
+      <AvatarComponent
+        {...avatarProps}
+        sx={{ zIndex: "-1 !important", backgroundColor: "darkorchid" }}
+      >
         {pfpUrl ? pfpUrl : username[0]?.toUpperCase()}
       </AvatarComponent>
     </div>
