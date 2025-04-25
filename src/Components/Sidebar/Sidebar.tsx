@@ -12,21 +12,16 @@ import { useNavigate } from "react-router-dom";
 import getPublicUrl from "../../utils/getPublicUrl";
 import { User } from "@supabase/supabase-js";
 import Avatar from "../Avatar/Avatar.tsx";
+import useAuth from "../../hooks/useAuth.ts";
+import LoginIcon from "@mui/icons-material/Login";
 function Sidebar() {
   const [open, setOpen] = useState(false);
 
-  const [user, setUser] = useState<User | null>(null);
-
   const navigate = useNavigate();
 
-  const getUser = async () => {
-    const resposne = await supabase.auth.getUser();
-    setUser(resposne.data.user);
-  };
+  const user = useAuth();
 
-  useEffect(() => {
-    getUser();
-  }, []);
+  console.log({ user });
 
   const signout = () => {
     supabase.auth.signOut();
@@ -39,7 +34,10 @@ function Sidebar() {
 
       <div className="flex-[0.15] [border-right:1px_solid_gray] h-screen overflow-hidden pl-2 pr-2 fixed w-[15vw]">
         {/* Image here */}
-        <img src="https://i.pinimg.com/originals/57/6c/dd/576cdd470fdc0b88f4ca0207d2b471d5.png" />
+        <img
+          src="https://www.pngkey.com/png/full/1-13459_instagram-font-logo-white-png-instagram-white-text.png"
+          className="object-cover w-[100px] mt-8 ml-1"
+        />
 
         <ul className="[&>li]:cursor-pointer [&>li]:my-6 [&>li>span]:mx-1 [&>li:hover>span>.MuiSvgIcon-root]:scale-110">
           <li onClick={() => navigate("/home")}>
@@ -78,26 +76,41 @@ function Sidebar() {
             </span>
             <span className="sidebar__optionText">Notifcations</span>
           </li>
-          <li onClick={() => setOpen(true)}>
-            <span className="[transition:all_250ms_ease-in-out]">
-              <AddIcon />
-            </span>
-            <span className="sidebar__optionText">Create</span>
-          </li>
-          <li
-            className="flex items-center"
-            onClick={() => navigate(`/profile/${user?.user_metadata.username}`)}
-          >
-            <span className="[transition:all_250ms_ease-in-out] mt-8">
-              <Avatar
-                avatarProps={{ sx: { width: "30px", height: "30px" } }}
-                username={user?.user_metadata.username}
-              />
-            </span>
+          {user ? (
+            <>
+              <li onClick={() => setOpen(true)}>
+                <span className="[transition:all_250ms_ease-in-out]">
+                  <AddIcon />
+                </span>
+                <span className="sidebar__optionText">Create</span>
+              </li>
 
-            <span className="mt-auto">Profile</span>
-          </li>
-          <li onClick={signout}>Log Out</li>
+              <li
+                className="flex items-center"
+                onClick={() =>
+                  navigate(`/profile/${user?.user_metadata.username}`)
+                }
+              >
+                <span className="[transition:all_250ms_ease-in-out] mt-8">
+                  <Avatar
+                    avatarProps={{ sx: { width: "30px", height: "30px" } }}
+                    username={user?.user_metadata.username}
+                  />
+                </span>
+
+                <span className="mt-auto">Profile</span>
+              </li>
+              <li onClick={signout}>Log Out</li>
+            </>
+          ) : (
+            <li onClick={() => navigate("/login")}>
+              <span>
+                <LoginIcon />
+              </span>
+
+              <span>Log In</span>
+            </li>
+          )}
         </ul>
       </div>
     </>
