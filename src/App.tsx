@@ -12,7 +12,7 @@ function App() {
     <Routes>
       <Route Component={Login} path="/login" />
       <Route Component={Signup} path="/signup" />
-      <Route Component={Home} path="/home" />
+      <Route Component={Home} path="/" />
       <Route Component={Post} path="/post/:id" />
       <Route Component={Profile} path="/profile/:username" />
       <Route Component={Edit} path="/profile/edit" />
