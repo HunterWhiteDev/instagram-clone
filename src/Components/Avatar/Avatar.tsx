@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import supabase from "../../supabase.ts";
-import { Avatar as AvatarComponent, AvatarGroupProps } from "@mui/material";
+import { Avatar as AvatarComponent, AvatarOwnProps } from "@mui/material";
 
 interface AvatarProps {
   username: string;
-  avatarProps?: AvatarGroupProps;
+  avatarProps?: AvatarOwnProps;
 }
 
 export default function Avatar({ username = "", avatarProps }: AvatarProps) {
@@ -28,7 +28,7 @@ export default function Avatar({ username = "", avatarProps }: AvatarProps) {
 
   return (
     <div className="z-0">
-      <AvatarComponent {...avatarProps} sx={{ zIndex: "0" }}>
+      <AvatarComponent {...avatarProps} sx={{ zIndex: "-1 !important" }}>
         {pfpUrl ? pfpUrl : username[0]?.toUpperCase()}
       </AvatarComponent>
     </div>

@@ -72,10 +72,10 @@ function CreateModal({ setOpen }: CreateModalProps) {
 
   return (
     <div
-      className="fixed h-screen w-screen top-[0] right-[0] bg-[rgba(0,_0,_0,_0.5)]"
+      className="fixed h-screen z-100 w-screen top-[0] right-[0] bg-[rgba(0,_0,_0,_0.5)]"
       onClick={handleClose}
     >
-      <div className="bg-[var(--gray)] w-[33vw] h-3/4 m-auto mt-[1vh] rounded-2xl [box-shadow:0px_0px_100px_black] !z-[1000]">
+      <div className="bg-[var(--gray)] lg:w-[33vw] md:w-[50vw] w-[75vw] h-3/4 m-auto mt-[1vh] rounded-2xl [box-shadow:0px_0px_100px_black] !z-[1000]">
         <div className="text-center [border-bottom:1px_solid_gray]">
           <p>Create new post</p>
         </div>
