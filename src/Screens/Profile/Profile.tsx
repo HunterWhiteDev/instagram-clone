@@ -1,13 +1,13 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar } from "../../Components/Sidebar";
 import { useNavigate, useParams } from "react-router-dom";
 import GridViewIcon from "@mui/icons-material/GridView";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import PortraitIcon from "@mui/icons-material/Portrait";
-import useFunction from "../../hooks/useFunction";
 import getPublicUrl from "../../utils/getPublicUrl";
-import invokeFunction from "../../utils/invokeFunction";
 import Avatar from "../../Components/Avatar/Avatar";
+import supabase from "../../supabase";
+import useAuth from "../../hooks/useAuth";
 interface User {
   username: string;
   user_id: string;
@@ -19,28 +19,67 @@ interface body {
 
 function Profile() {
   const { username } = useParams();
+  const auth = useAuth();
 
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isFollowing, setIsFollowing] = useState(false);
   const [selected, setSelected] = useState<string>("posts");
-  const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
-  const body = useMemo(() => {
-    return { username };
-  }, [username]);
+  const [posts, setPosts] = useState();
 
-  const [loading, data] = useFunction("profile", body, null, (res) =>
-    setIsFollowing(res.isFollowing as boolean),
-  );
+  const [profile, setProfile] = useState<User>();
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const run = async () => {
+      setLoading(true);
+      const { data: profileData, error: profileError } = await supabase
+        .from("users")
+        .select("*")
+        .eq("username", username)
+        .limit(1)
+        .single();
+      if (profileData) setProfile(profileData);
+
+      const { data: postsData, error: postsError } = await supabase
+        .from("posts")
+        .select("*")
+        .eq("user_id", profileData?.user_id);
+
+      if (postsData) setPosts(postsData);
+
+      const { data: followingData, error: followingError } = await supabase
+        .from("following")
+        .select("*")
+        .eq("following_id", profileData?.id)
+        .eq("follower_id", auth?.id);
+
+      if (postsData) setPosts(postsData);
+
+      setLoading(false);
+    };
+    run();
+  }, []);
+
+  console.log({ profile });
+
   const followUser = async () => {
-    const [success, data] = await invokeFunction("follow", { username });
-    if (success) setIsFollowing(true);
+    await supabase.from("following").insert({
+      follower_id: auth?.id,
+      following_id: profile?.user_id,
+    });
+
+    setIsFollowing(true);
   };
 
   const unfollowUser = async () => {
-    const [success, data] = await invokeFunction("unfollow", { username });
-    if (success) setIsFollowing(false);
+    await supabase
+      .from("following")
+      .delete()
+      .eq("follower_id", auth?.id)
+      .eq("following_id", profile?.user_id);
+    setIsFollowing(false);
   };
 
   return (
@@ -56,10 +95,10 @@ function Profile() {
           </div>
           <div className="flex flex-col gap-2">
             <div className="text-2xl font-bold text-left bg-red">
-              {data?.user && data?.user?.username}
+              {profile && profile.username}
             </div>
             <div className="flex gap-2">
-              {data?.isUser ? (
+              {auth?.id === profile?.user_id ? (
                 <>
                   <button
                     className="bg-gray-600 p-1 rounded-md cursor-pointer hover:bg-gray-500"
@@ -95,7 +134,7 @@ function Profile() {
           <div className="flex justify-center [&>div]:flex [&>div]:items-center [&>div:hover]:bg-[rgba(255,255,255,0.20)] [&>div]:cursor-pointer [&>div]:p-2 [&>div]:rounded-b-lg gap-8">
             <div
               className={`profile__postsAction ${
-                selected === "posts" && "selected"
+                selected === "posts" && "bg-[var(--gray)]"
               }`}
             >
               <span>
@@ -125,13 +164,17 @@ function Profile() {
             </div>
           </div>
           <div className="">
-            <div className="">
+            <div className="mt-4">
               {!loading &&
-                data?.posts?.map((post) => (
+                posts?.map((post) => (
                   <div>
                     <img
+                      className="object-cover h-[400px] w-[350px] cursor-pointer"
                       onClick={() => navigate(`/post/${post.id}`)}
-                      src={getPublicUrl(post.images[0], "posts")}
+                      src={getPublicUrl(
+                        `${profile?.user_id}/${post.images[0]}`,
+                        "posts",
+                      )}
                     />
                   </div>
                 ))}
