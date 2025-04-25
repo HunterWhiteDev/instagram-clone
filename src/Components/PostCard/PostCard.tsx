@@ -18,7 +18,7 @@ function PostCard({
   like_count = "5",
   description = "desc",
   user_id = "",
-  created_at = Date().getTime(),
+  created_at,
   images = [""],
   // username = "name",
 }: Posts) {
@@ -73,18 +73,15 @@ function PostCard({
       className="border-[1px] border-solid border-[rgba(128,128,128,0.341)] rounded-lg cursor-pointer mb-4"
       onClick={handleNavigation}
     >
-      <div
-        ref={userRef}
-        className="flex items-center pl-[5px] pt-[5px] pb-[5px]"
-      >
+      <div ref={userRef} className="flex items-center p-3 pl-2">
         <Avatar username={username[0]?.toUpperCase()} />
-        <div className="flex">
+        <div className="flex items-center">
           <p className="ml-2">
             <span>{username}</span>
             <br />
             <span>{location}</span>
           </p>
-          <p className="!ml-[5px] text-[rgb(155,_155,_155)]">
+          <p className="!ml-[5px] text-sm text-[rgb(155,_155,_155)]">
             {moment(created_at).startOf("hour").fromNow()}
           </p>
         </div>
@@ -93,14 +90,17 @@ function PostCard({
         className="bg-[black] flex items-center"
         onClick={() => navigate(`/post/${id}`)}
       >
-        <img className="object-cover" src={getPublicUrl(images[0], "posts")} />
+        <img
+          className="object-cover"
+          src={getPublicUrl(images[0], `posts/${user_id}`)}
+        />
       </div>
       <div className="pl-[5px] pt-[5px] pb-[5px]">
         <div className="post_bottomButtons">
           <FavoriteBorderIcon />
           <ModeCommentOutlinedIcon />
         </div>
-        <p className="post__bottomLikeCount">{like_count} likes</p>
+        <p className="text-gray-300 mt-1">{like_count} likes</p>
         <p>{description}</p>
 
         {comments.map((comment) => (
@@ -108,7 +108,7 @@ function PostCard({
         ))}
         <form ref={formRef} onSubmit={addComment}>
           <input
-            className="w-full outline-0"
+            className="w-full outline-0 mt-2 "
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             placeholder="Add a comment..."
