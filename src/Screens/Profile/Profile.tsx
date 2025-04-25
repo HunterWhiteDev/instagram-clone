@@ -8,13 +8,10 @@ import getPublicUrl from "../../utils/getPublicUrl";
 import Avatar from "../../Components/Avatar/Avatar";
 import supabase from "../../supabase";
 import useAuth from "../../hooks/useAuth";
+import { Posts } from "../../../types/collection";
 interface User {
   username: string;
   user_id: string;
-}
-
-interface body {
-  username: string;
 }
 
 function Profile() {
@@ -25,9 +22,9 @@ function Profile() {
   const [isFollowing, setIsFollowing] = useState(false);
   const [selected, setSelected] = useState<string>("posts");
 
-  const [posts, setPosts] = useState();
+  const [posts, setPosts] = useState<Posts[] | null>();
 
-  const [profile, setProfile] = useState<User>();
+  const [profile, setProfile] = useState<User | null>();
 
   const navigate = useNavigate();
 
@@ -37,25 +34,27 @@ function Profile() {
       const { data: profileData, error: profileError } = await supabase
         .from("users")
         .select("*")
-        .eq("username", username)
+        .eq("username", username as string)
         .limit(1)
         .single();
-      if (profileData) setProfile(profileData);
+      if (profileData && !profileError) setProfile(profileData as User);
+
+      console.log({ profileData, auth });
 
       const { data: postsData, error: postsError } = await supabase
         .from("posts")
         .select("*")
-        .eq("user_id", profileData?.user_id);
+        .eq("user_id", profileData?.user_id as string);
 
-      if (postsData) setPosts(postsData);
+      if (postsData && !postsError) setPosts(postsData);
 
       const { data: followingData, error: followingError } = await supabase
         .from("following")
         .select("*")
-        .eq("following_id", profileData?.id)
-        .eq("follower_id", auth?.id);
+        .eq("following_id", profileData?.user_id as string)
+        .eq("follower_id", auth?.id as string);
 
-      if (postsData) setPosts(postsData);
+      if (followingData && !followingError) setIsFollowing(true);
 
       setLoading(false);
     };
@@ -77,8 +76,8 @@ function Profile() {
     await supabase
       .from("following")
       .delete()
-      .eq("follower_id", auth?.id)
-      .eq("following_id", profile?.user_id);
+      .eq("follower_id", auth?.id as string)
+      .eq("following_id", profile?.user_id as string);
     setIsFollowing(false);
   };
 
@@ -166,13 +165,14 @@ function Profile() {
           <div className="">
             <div className="mt-4">
               {!loading &&
+                posts &&
                 posts?.map((post) => (
                   <div>
                     <img
                       className="object-cover h-[400px] w-[350px] cursor-pointer"
-                      onClick={() => navigate(`/post/${post.id}`)}
+                      onClick={() => navigate(`/post/${post?.id}`)}
                       src={getPublicUrl(
-                        `${profile?.user_id}/${post.images[0]}`,
+                        `${profile?.user_id}/${post?.images?.[0]}`,
                         "posts",
                       )}
                     />
