@@ -20,7 +20,7 @@ function Home() {
     <>
       <Sidebar />
       <div className="ml-[17.5vw] pt-[2.5vh] w-3/4">
-        <Stories />
+        {/* <Stories /> */}
         <div className="w-[500px] mx-[auto] my-[0] mt-4">
           {posts?.map((post) => <Post {...post} />)}
         </div>
