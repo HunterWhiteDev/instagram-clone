@@ -9,8 +9,6 @@ import CreateModal from "../CreateModal/CreateModal.tsx";
 import React, { useEffect, useState } from "react";
 import supabase from "../../supabase.ts";
 import { useNavigate } from "react-router-dom";
-import getPublicUrl from "../../utils/getPublicUrl";
-import { User } from "@supabase/supabase-js";
 import Avatar from "../Avatar/Avatar.tsx";
 import useAuth from "../../hooks/useAuth.ts";
 import LoginIcon from "@mui/icons-material/Login";
@@ -40,7 +38,7 @@ function Sidebar() {
         />
 
         <ul className="[&>li]:cursor-pointer [&>li]:my-6 [&>li>span]:mx-1 [&>li:hover>span>.MuiSvgIcon-root]:scale-110">
-          <li onClick={() => navigate("/home")}>
+          <li onClick={() => navigate("/")}>
             <span className="[transition:all_250ms_ease-in-out]">
               <HomeIcon />
             </span>
