@@ -17,3 +17,9 @@ body {
   color: white;
   margin: 0;
 }
+
+@layer components {
+  .sidebar__optionText {
+    @apply hidden lg:block;
+  }
+}

@@ -37,7 +37,7 @@ function Sidebar() {
           className="object-cover w-[100px] mt-8 ml-1"
         />
 
-        <ul className="[&>li]:cursor-pointer [&>li]:my-6 [&>li>span]:mx-1 [&>li:hover>span>.MuiSvgIcon-root]:scale-110">
+        <ul className="[&>li]:cursor-pointer [&>li]:my-6 [&>li>span]:mx-1 [&>li:hover>span>.MuiSvgIcon-root]:scale-110 [&>li]:flex [&>li]:items-center [&>li]:justify-center  lg:[&>li]:justify-start">
           <li onClick={() => navigate("/")}>
             <span className="[transition:all_250ms_ease-in-out]">
               <HomeIcon />
@@ -106,7 +106,7 @@ function Sidebar() {
                 <LoginIcon />
               </span>
 
-              <span>Log In</span>
+              <span className="sidebar__optionText">Log In</span>
             </li>
           )}
         </ul>
