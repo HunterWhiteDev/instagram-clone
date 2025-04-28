@@ -103,7 +103,7 @@ function PostCard({
         <p className="text-gray-300 mt-1">{like_count} likes</p>
         <p>{description}</p>
 
-        {comments.map((comment) => (
+        {comments?.map((comment) => (
           <Comment {...comment} onDelete={onDelete} />
         ))}
         <form ref={formRef} onSubmit={addComment}>
