@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "restart": "vite",
-    "up": "concurrently \"supabase start\" \"npm run db:seed-stroage\" \"vite\"",
+    "up": "concurrently \"supabase start\" \"npm run db:seed-storage\" \"vite\"",
     "db:seed-storage": "ts-node supabase/scripts/seed-storage.ts",
     "db:reset": "supabase db reset && npm run db:seed-storage",
     "build": "tsc && vite build",
