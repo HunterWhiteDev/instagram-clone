@@ -19,6 +19,7 @@ jobs:
             cd /home/hunter/websites/instagram-clone || exit
             git pull origin new-main || exit 1
             sudo npm install || exit 1
+            sudo npm run gen-types
             sudo npm run build || exit 1
             sudo cp -r build/* /home/hunter/websites/instagram-clone/public_html || exit 1
             sudo systemctl restart apache2 || exit 1
