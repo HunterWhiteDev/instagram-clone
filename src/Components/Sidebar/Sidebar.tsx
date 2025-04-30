@@ -96,9 +96,15 @@ function Sidebar() {
                   />
                 </span>
 
-                <span>Profile</span>
+                <span className="sidebar__optionText">Profile</span>
               </li>
-              <li onClick={signout}>Log Out</li>
+              <li onClick={signout}>
+                <span>
+                  <LoginIcon />
+                </span>
+
+                <span className="sidebar__optionText">Log Out</span>
+              </li>
             </>
           ) : (
             <li onClick={() => navigate("/login")}>
