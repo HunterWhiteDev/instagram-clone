@@ -9,6 +9,7 @@ import Avatar from "../../Components/Avatar/Avatar";
 import supabase from "../../supabase";
 import useAuth from "../../hooks/useAuth";
 import { Posts } from "../../../types/collection";
+
 interface User {
   username: string;
   user_id: string;
@@ -18,13 +19,20 @@ function Profile() {
   const { username } = useParams();
   const auth = useAuth();
 
-  const [loading, setLoading] = useState<boolean>(false);
-  const [isFollowing, setIsFollowing] = useState(false);
+  //Page State
   const [selected, setSelected] = useState<string>("posts");
+  const [loading, setLoading] = useState<boolean>(false);
+  //Auth user states
+  const [isFollowing, setIsFollowing] = useState(false);
 
-  const [posts, setPosts] = useState<Posts[] | null>();
+  //Metrics
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
+  const [postsCount, setPostsCount] = useState(0);
 
+  //Profile info
   const [profile, setProfile] = useState<User | null>();
+  const [posts, setPosts] = useState<Posts[] | null>();
 
   const navigate = useNavigate();
 
@@ -56,6 +64,30 @@ function Profile() {
 
       if (followingData && !followingError) setIsFollowing(true);
 
+      const { count: followingCountData, error: followingCountError } =
+        await supabase
+          .from("following")
+          .select("*", { count: "exact", head: true })
+          .eq("follower_id", profileData?.user_id as string);
+
+      setFollowingCount(followingCountData);
+
+      const { count: followerCountData, error: followwerCountError } =
+        await supabase
+          .from("following")
+          .select("*", { count: "exact", head: true })
+          .eq("following_id", profileData?.user_id as string);
+
+      setFollowersCount(followerCountData);
+
+      const { count: postsCountData, error: postsCountError } = await supabase
+        .from("posts")
+        .select("*", { count: "exact", head: true })
+        .eq("user_id", profileData?.user_id as string);
+
+      setPostsCount(postsCountData);
+
+      console.log({ data: followingCountData, error: followingCountError });
       setLoading(false);
     };
     run();
@@ -119,10 +151,11 @@ function Profile() {
                 </button>
               )}
             </div>
-            <div className="flex gap-4">
-              <span>12 posts</span>
-              <span>53 followers</span>
-              <span>53 following</span>
+            <div className="flex gap-4 [&>span]:cursor-pointer ">
+              <span>{postsCount} posts</span>
+              <span>{followersCount} followers</span>
+
+              <span>{followingCount} following</span>
             </div>
             <div className=""></div>
           </div>
@@ -132,9 +165,8 @@ function Profile() {
           <hr />
           <div className="flex justify-center [&>div]:flex [&>div]:items-center [&>div:hover]:bg-[rgba(255,255,255,0.20)] [&>div]:cursor-pointer [&>div]:p-2 [&>div]:rounded-b-lg gap-8">
             <div
-              className={`profile__postsAction ${
-                selected === "posts" && "bg-[var(--gray)]"
-              }`}
+              className={`profile__postsAction ${selected === "posts" && "bg-[var(--gray)]"
+                }`}
             >
               <span>
                 <GridViewIcon />
@@ -142,9 +174,8 @@ function Profile() {
               <p>POSTS</p>
             </div>
             <div
-              className={`profile__postsAction ${
-                selected === "bookmarks" && "selected"
-              }`}
+              className={`profile__postsAction ${selected === "bookmarks" && "selected"
+                }`}
             >
               <span>
                 <BookmarkIcon />
@@ -152,9 +183,8 @@ function Profile() {
               <p>BOOKMARKS</p>
             </div>
             <div
-              className={`profile__postsAction ${
-                selected === "tagged" && "selected"
-              }`}
+              className={`profile__postsAction ${selected === "tagged" && "selected"
+                }`}
             >
               <span>
                 <PortraitIcon />
