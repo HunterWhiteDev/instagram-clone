@@ -18,11 +18,12 @@ jobs:
           ssh -o StrictHostKeyChecking=no hunter@hunterwhitedev.com << 'EOF'
             cd /home/hunter/websites/instagram-clone || exit
             git pull origin new-main || exit 1
+            export SUPABASE_DB_URL="${{secrets.POSTGRES_URL}}"
+            supabase db push
+
             sudo npm install || exit 1
             sudo npm run gen-types
             sudo npm run build || exit 1
             sudo cp -r build/* /home/hunter/websites/instagram-clone/public_html || exit 1
             sudo systemctl restart apache2 || exit 1
-            export SUPABASE_DB_URL="${{secrets.POSTGRES_URL}}"
-            supabase db push
           EOF
