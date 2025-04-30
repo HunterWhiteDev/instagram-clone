@@ -84,4 +84,7 @@ VALUES
     '45d0e653-92a0-48fa-9762-c9958f78e687',
      ARRAY['945e9736-2bef-4010-97c9-55b246787280.jpg'],
      'A beautiful picture of my boat'
-  )
+  );
+
+  insert INTO public.comments (post_id, user_id, content) values(1, '45d0e653-92a0-48fa-9762-c9958f78e686', 'I love this picture!');
+
