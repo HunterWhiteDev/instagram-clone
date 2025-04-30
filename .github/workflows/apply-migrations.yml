@@ -16,6 +16,7 @@ jobs:
 
       - name: Install Supabase CLI
         run: |
+          sudo rm -f supabase.tar.gz #Remove any existing file download
           curl -fsSL https://github.com/supabase/cli/releases/download/v1.153.0/supabase_linux_amd64.tar.gz -o supabase.tar.gz
           tar -xzvf supabase.tar.gz
           sudo rm -f /usr/local/bin/supabase  # Remove any existing binary
