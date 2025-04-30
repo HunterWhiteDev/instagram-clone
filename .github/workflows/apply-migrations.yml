@@ -2,8 +2,11 @@
 name: Apply Supabase Migrations
 on:
   push:
-    paths:
-      - supabase/migrations/**
+    branches:
+      - new-main
+
+    # paths:
+    #   - /
 jobs:
   apply-migrations:
     runs-on: ubuntu-latest
